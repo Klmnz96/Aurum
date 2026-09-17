@@ -9,6 +9,140 @@
     <link rel="stylesheet" href="../style.css" />
   </head>
   <body>
+    <!--Header-->
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="../index.html" class="logo">
+          <img src="../assets/icons/logo.svg" alt="" width="28" height="28" />
+          <span>AURUM</span>
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
+          <ul>
+            <li>
+              <a href="collection.html" aria-current="page">Collection</a>
+            </li>
+            <li><a href="heritage.html">Heritage</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+          <!--Warenkorb-->
+          <a href="cart.html" class="cart-link" aria-label="Cart">
+            <img src="../assets/icons/cart.svg" alt="" width="22" height="22" />
+            <span class="cart-count" id="cart-count">0</span>
+          </a>
+          <button
+            class="nav-toggle"
+            aria-expanded="false"
+            aria-controls="site-nav"
+          >
+            <img
+              src="../assets/icons/menu.svg"
+              alt="Open menu"
+              width="24"
+              height="24"
+            />
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="section" id="main">
+      <div class="container">
+        <header class="page-head">
+          <p class="eyebrow">The Collection</p>
+          <h1>Five pieces. No compromises.</h1>
+        </header>
+
+        <!--Filter Button-->
+        <div class="filter-bar">
+          <button class="filter-btn" data-category="all">All</button>
+          <button class="filter-btn" data-category="Diver">Diver</button>
+          <button class="filter-btn" data-category="Dress">Dress</button>
+          <button class="filter-btn" data-category="Heritage">Heritage</button>
+          <button class="filter-btn" data-category="Sport">Sport</button>
+          <button class="filter-btn" data-category="Avant-Garde">
+            Avant-Garde
+          </button>
+        </div>
+
+        <ul class="product-grid" id="product-grid"></ul>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <!--Newsletter-->
+        <div class="footer-newsletter">
+          <p class="eyebrow">Stay Informed</p>
+          <h3>Be the first to know about new pieces.</h3>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your email" required />
+            <button type="submit" class="button">Subscribe</button>
+          </form>
+        </div>
+
+        <div class="footer-top">
+          <div class="footer-col">
+            <a href="../index.html" class="logo">
+              <img
+                src="../assets/icons/logo.svg"
+                alt=""
+                width="28"
+                height="28"
+              />
+              <span>AURUM</span>
+            </a>
+            <p class="footer-tagline">Swiss inspired watchmaking, est. 1998.</p>
+          </div>
+          <div class="footer-col">
+            <p class="eyebrow">Boutique</p>
+            <address>
+              12 Rue du Rhône, Geneva<br />
+              concierge@aurum-watches.com<br />
+              +41 22 000 00 00
+            </address>
+          </div>
+
+          <div class="footer-col">
+            <p class="eyebrow">Explore</p>
+            <nav aria-label="Footer navigation">
+              <ul>
+                <li><a href="collection.html">Collection</a></li>
+                <li><a href="heritage.html">Heritage</a></li>
+                <li><a href="contact.html">Contact</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2026 Aurum. All rights reserved.</p>
+          <ul class="socials">
+            <li>
+              <a href="#" aria-label="Instagram">
+                <img
+                  src="../assets/icons/instagram.svg"
+                  alt=""
+                  width="20"
+                  height="20"
+                />
+              </a>
+            </li>
+            <li>
+              <a href="#" aria-label="LinkedIn">
+                <img
+                  src="../assets/icons/linkedin.svg"
+                  alt=""
+                  width="20"
+                  height="20"
+                />
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </footer>
     <script src="../script/cart.js"></script>
     <script src="../script/template.js"></script>
     <script src="../script.js"></script>
