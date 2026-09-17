@@ -1,0 +1,114 @@
+{
+  "products": [
+    {
+      "id": "meridian",
+      "name": "Meridian",
+      "category": "Diver",
+      "price": 11800,
+      "material": "Stainless steel & black ceramic",
+      "movement": "Automatic, 70-hour power reserve",
+      "caseSize": "41mm",
+      "waterResistance": "300m",
+      "summary": "Built for the depths, finished for the boardroom — a dive watch that has never once been near the sea.",
+      "description": [
+        "The Meridian takes its architecture from the tool watches of the 1960s: a unidirectional bezel, luminous markers, and a case built to survive far more than it will ever be asked to.",
+        "Every Meridian is regulated to within two seconds a day before it leaves the workshop — a tolerance we consider the minimum, not the achievement."
+      ],
+      "thumb": "assets/images/rolex-signature.jpg",
+      "images": [
+        "assets/images/rolex-signature.jpg",
+        "assets/images/rolex-close-up.jpg",
+        "assets/images/rolex-wrist.jpg",
+        "assets/images/rolex-crown-detail.jpg"
+      ]
+    },
+    {
+      "id": "regent",
+      "name": "Regent",
+      "category": "Dress",
+      "price": 24500,
+      "material": "18k rose gold",
+      "movement": "Manual winding",
+      "caseSize": "38mm",
+      "waterResistance": "30m",
+      "summary": "A watch that disappears under a cuff and reappears the moment it matters.",
+      "description": [
+        "The Regent is deliberately quiet: a slim case, a single hand-finished dial, no complication that doesn't earn its place.",
+        "It is built for evenings, not expeditions — the kind of restraint that only becomes obvious once you've worn it."
+      ],
+      "thumb": "assets/images/cartier-signature.jpg",
+      "images": [
+        "assets/images/cartier-signature.jpg",
+        "assets/images/cartier-close-up.jpg",
+        "assets/images/cartier-wrist.jpg",
+        "assets/images/cartier-crown-detail.jpg"
+      ]
+    },
+    {
+      "id": "calibre",
+      "name": "Calibre",
+      "category": "Heritage",
+      "price": 38900,
+      "material": "Platinum",
+      "movement": "In-house automatic calibre",
+      "caseSize": "39mm",
+      "waterResistance": "50m",
+      "summary": "The watch we would keep if we could only ever make one.",
+      "description": [
+        "Calibre carries our in-house movement, assembled and adjusted by a single watchmaker from first part to final seal.",
+        "Its design has changed only twice in three decades — proof, we think, that some ideas don't need improving."
+      ],
+      "thumb": "assets/images/patek-signature.jpg",
+      "images": [
+        "assets/images/patek-signature.jpg",
+        "assets/images/patek-close-up.jpg",
+        "assets/images/patek-wrist.jpg",
+        "assets/images/patek-crown-detail.jpg"
+      ]
+    },
+    {
+      "id": "apex",
+      "name": "Apex",
+      "category": "Sport",
+      "price": 32750,
+      "material": "Titanium & forged carbon",
+      "movement": "Automatic chronograph",
+      "caseSize": "42mm",
+      "waterResistance": "100m",
+      "summary": "An architectural case for a movement built to be seen, not just told about.",
+      "description": [
+        "The Apex pairs an openworked dial with an angular, faceted case — every surface catches light differently as your wrist moves.",
+        "It's the boldest piece in the collection, built for the days you don't want your watch to whisper."
+      ],
+      "thumb": "assets/images/audemars-signature.webp",
+      "images": [
+        "assets/images/audemars-signature.webp",
+        "assets/images/audemars-close-up.jpg",
+        "assets/images/audemars-wrist.jpg",
+        "assets/images/audemars-crown-detail.jpg"
+      ]
+    },
+    {
+      "id": "velocity",
+      "name": "Velocity",
+      "category": "Avant-Garde",
+      "price": 68000,
+      "material": "Carbon composite & titanium",
+      "movement": "Skeletonised automatic",
+      "caseSize": "44mm",
+      "waterResistance": "50m",
+      "summary": "Less a watch than a piece of machinery you happen to wear.",
+      "description": [
+        "Velocity strips the case back to a single question: how little can hold a movement together and still feel indestructible?",
+        "The answer is a tonneau-shaped shell in carbon composite, light enough to forget and stiff enough to trust."
+      ],
+      "thumb": "assets/images/richard-mille-signature.jpg",
+      "images": [
+        "assets/images/richard-mille-signature.jpg",
+        "assets/images/richard-mille-close-up.webp",
+        "assets/images/richard-mille-wrist.jpg",
+        "assets/images/richard-mille-crown-detail.jpg"
+      ]
+    }
+  ]
+}
