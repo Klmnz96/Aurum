@@ -65,27 +65,44 @@
 
       <!--Markenstatement-->
       <section class="section section-intro">
-        <div class="container">
-          <p class="lead">
-            Aurum builds watches with one rule: Nothing on the case that doesn't
-            earn its place.
-          </p>
-          <a href="html/heritage.html" class="link-arrow">
-            Our heritage
-            <img
-              src="./assets/icons/arrow-right.svg"
-              alt=""
-              width="20"
-              height="20"
-            />
-          </a>
+        <div class="container intro-grid">
+          <div class="intro-text" data-reveal>
+            <p class="lead">
+              Aurum builds watches with one rule: nothing on the case that
+              doesn't earn its place.
+            </p>
+            <a href="html/heritage.html" class="link-arrow">
+              Our heritage
+              <img
+                src="./assets/icons/arrow-right.svg"
+                alt=""
+                width="20"
+                height="20"
+              />
+            </a>
+          </div>
+
+          <dl class="intro-stats" data-reveal>
+            <div>
+              <dt>Est.</dt>
+              <dd>1998</dd>
+            </div>
+            <div>
+              <dt>References</dt>
+              <dd>5</dd>
+            </div>
+            <div>
+              <dt>Assembled</dt>
+              <dd>Geneva</dd>
+            </div>
+          </dl>
         </div>
       </section>
 
       <!--Ausgewählte Modelle-->
       <section class="section section-featured">
         <div class="container">
-          <h2>The Collection</h2>
+          <h2 data-reveal>The Collection</h2>
           <ul class="product-grid" id="featured-grid"></ul>
           <!--Wird per JS eingefügt-->
           <a href="html/collection.html" class="link-arrow">
@@ -102,7 +119,10 @@
 
       <!--CTA-->
       <section class="section section-cta">
-        <div class="container">
+        <figure class="cta-media">
+          <img src="./assets/images/cartier-crown-detail.jpg" alt="" />
+        </figure>
+        <div class="container cta-content" data-reveal>
           <h2>Reserve a private viewing</h2>
           <a href="html/contact.html" class="button">Get in touch</a>
         </div>
@@ -113,7 +133,6 @@
       <div class="container">
         <!--Newsletter-->
         <div class="footer-newsletter">
-          <p class="eyebrow">Stay Informed</p>
           <h3>Be the first to know about new pieces.</h3>
           <form class="newsletter-form">
             <input type="email" placeholder="Your email" required />
@@ -135,7 +154,7 @@
             <p class="footer-tagline">Swiss inspired watchmaking, est. 1998.</p>
           </div>
           <div class="footer-col">
-            <p class="eyebrow">Boutique</p>
+            <p class="footer-label">Boutique</p>
             <address>
               12 Rue du Rhône, Geneva<br />
               concierge@aurum-watches.com<br />
@@ -144,7 +163,7 @@
           </div>
 
           <div class="footer-col">
-            <p class="eyebrow">Explore</p>
+            <p class="footer-label">Explore</p>
             <nav aria-label="Footer navigation">
               <ul>
                 <li><a href="html/collection.html">Collection</a></li>
