@@ -1,3 +1,5 @@
+let allProducts = [];
+
 function initHeader() {
   const header = document.querySelector(".site-header");
   const hero = document.querySelector(".hero");
@@ -46,9 +48,56 @@ function initScrollReveal() {
   revealElements.forEach((element) => revealObserver.observe(element));
 }
 
+function renderProductGrid(gridElement, products) {
+  gridElement.innerHTML = products.map(buildProductCard).join("");
+}
+
+function initFeaturedGrid() {
+  const featuredGrid = document.querySelector("#featured-grid");
+  if (!featuredGrid) return;
+
+  getProducts().then((products) => {
+    renderProductGrid(featuredGrid, products.slice(0, 3));
+  });
+}
+
+function handleFilterClick(event) {
+  const clickedButton = event.target.closest(".filter-btn");
+  if (!clickedButton) return;
+
+  const productGrid = document.querySelector("#product-grid");
+  const category = clickedButton.dataset.category;
+  const filteredProducts =
+    category === "all"
+      ? allProducts
+      : allProducts.filter((product) => product.category === category);
+
+  renderProductGrid(productGrid, filteredProducts);
+
+  document
+    .querySelectorAll(".filter-btn")
+    .forEach((button) => button.classList.remove("is-active"));
+  clickedButton.classList.add("is-active");
+}
+
+function initCollectionGrid() {
+  const productGrid = document.querySelector("#product-grid");
+  const filterBar = document.querySelector(".filter-bar");
+  if (!productGrid || !filterBar) return;
+
+  getProducts().then((products) => {
+    allProducts = products;
+    renderProductGrid(productGrid, allProducts);
+  });
+
+  filterBar.addEventListener("click", handleFilterClick);
+}
+
 function init() {
   initHeader();
   initScrollReveal();
+  initFeaturedGrid();
+  initCollectionGrid();
 }
 
 init();
