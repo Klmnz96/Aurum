@@ -26,8 +26,8 @@
   --display: clamp(
     3rem,
     2rem + 7vw,
-    6.5rem
-  ); /* Hero-Titel – bewusst größer als bei Studio Kalk */
+    6rem
+  ); /* Hero-Titel – bewusst größer als bei Studio Kalk, 96px-Deckel */
 
   /* ---- Zeilenhöhen ---- */
   --leading-tight: 1.05; /* große Überschriften: Serifen brauchen etwas weniger Luft */
@@ -60,8 +60,9 @@
   /* ---- Sonstiges ---- */
   --radius: 0px; /* scharfe Kanten – "präzise gefertigt", kein Soft-UI */
   --border: 1px solid var(--hairline);
-  --transition: 250ms ease;
-  --transition-slow: 500ms ease;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1); /* kräftigere Kurve als das eingebaute "ease" */
+  --transition: 250ms var(--ease-out);
+  --transition-slow: 500ms var(--ease-out);
 }
 
 /* ============================================
