@@ -44,3 +44,47 @@ function buildProductNotFound() {
   </div>
   `;
 }
+
+function buildProductThumb(imagePath) {
+  return `
+  <li>
+  <button class="product-thumb" type="button" data-image="${getAssetPath(imagePath)}" aria-label="Show this view">
+  <img src="${getAssetPath(imagePath)}" alt="" />
+  </button>
+  </li>
+  `;
+}
+
+function buildDescriptionParagraph(paragraphText) {
+  return `<p>${paragraphText}</p>`;
+}
+
+function buildProductDetail(product) {
+  return `
+  <div class="product-gallery">
+  <figure class="product-main-image">
+  <img src="${getAssetPath(product.images[0])}" alt="${product.name}" id="product-main-image" />
+  </figure>
+  <ul class="product-thumbs">
+  ${getProductThumbsHtml(product.images)}
+  </ul>
+  </div>
+  
+  <div class="product-info">
+  <h1 class="product-name">${product.name}</h1>
+  <p class="product-price">${formatPrice(product.price)}</p>
+  <p class="product-category">${product.category}, ${product.caseSize}</p>
+  <p class="product-summary">${product.summary}</p>
+  <button class="button product-add" type="button" data-id="${product.id}">Add to selection</button>
+  <dl class="product-specs">
+  <div><dt>Case</dt><dd>${product.caseSize}</dd></div>
+  <div><dt>Material</dt><dd>${product.material}</dd></div>
+  <div><dt>Movement</dt><dd>${product.movement}</dd></div>
+  <div><dt>Water resistance</dt><dd>${product.waterResistance}</dd></div>
+  </dl>
+  <div class="product-description">
+  ${getDescriptionHtml(product.description)}
+  </div>
+  </div>
+  `;
+}

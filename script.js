@@ -230,8 +230,36 @@ function initProductDetail() {
       productContainer.innerHTML = buildProductNotFound();
       return;
     }
-    console.log(selectedProduct);
+    productContainer.innerHTML = buildProductDetail(selectedProduct);
+    document.title = `${selectedProduct.name} - Aurum`;
+    setActiveThumb(productContainer.querySelector(".product-thumb"));
   });
+
+  productContainer.addEventListener("click", handleThumbClick);
+}
+
+function getProductThumbsHtml(images) {
+  return images.map(buildProductThumb).join("");
+}
+
+function getDescriptionHtml(paragraphs) {
+  return paragraphs.map(buildDescriptionParagraph).join("");
+}
+
+function setActiveThumb(activeThumb) {
+  document
+    .querySelectorAll(".product-thumb")
+    .forEach((thumb) => thumb.classList.remove("is-active"));
+  activeThumb.classList.add("is-active");
+}
+
+function handleThumbClick(event) {
+  const clickedThumb = event.target.closest(".product-thumb");
+  if (!clickedThumb) return;
+
+  const mainImage = document.querySelector("#product-main-image");
+  mainImage.src = clickedThumb.dataset.image;
+  setActiveThumb(clickedThumb);
 }
 
 function init() {
