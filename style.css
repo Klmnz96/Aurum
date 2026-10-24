@@ -1252,6 +1252,11 @@ img[src*="icons/"] {
   max-width: 36rem;
 }
 
+.button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .cart-item-remove:hover {
     color: var(--ink);

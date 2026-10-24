@@ -88,3 +88,28 @@ function buildProductDetail(product) {
   </div>
   `;
 }
+
+function buildCartItem(cartEntry) {
+  return `
+  <li class="cart-item">
+  <figure class="cart-item-media watch-frame" style="${getWatchFocusStyle(cartEntry.product.focus)}">
+  <img src="${getAssetPath(cartEntry.product.thumb)}" alt="${cartEntry.product.name}" />
+  </figure>
+  <div class="cart-item-info">
+  <h3 class="cart-item-name">${cartEntry.product.name}</h3>
+  <p class="cart-item-meta">${cartEntry.product.category}, ${cartEntry.product.caseSize}</p>
+  <button class="cart-item-remove" type="button" data-id="${cartEntry.product.id}">Remove</button>
+  </div>
+  <div class="cart-item-quantity">
+  <button class="quantity-btn" type="button" data-action="decrease" data-id="${cartEntry.product.id}" aria-label="One less">
+  <img src="${getAssetPath("assets/icons/minus.svg")}" alt="" width="16" height="16" />
+  </button>
+  <span>${cartEntry.quantity}</span>
+  <button class="quantity-btn" type="button" data-action="increase" data-id="${cartEntry.product.id}" aria-label="One more">
+  <img src="${getAssetPath("assets/icons/plus.svg")}" alt="" width="16" height="16" />
+  </button>
+  </div>
+  <p class="cart-item-price">${formatPrice(cartEntry.lineTotal)}</p>
+  </li>
+  `;
+}

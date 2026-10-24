@@ -276,6 +276,51 @@ function handleThumbClick(event) {
   setActiveThumb(clickedThumb);
 }
 
+function renderCartPage(products) {
+  const cartList = document.querySelector("#cart-items");
+  const cartEmpty = document.querySelector("#cart-empty");
+  const checkoutButton = document.querySelector("#checkout-btn");
+  const cartEntries = getCartEntries(products);
+  const cartTotal = formatPrice(getCartTotal(cartEntries));
+
+  cartList.innerHTML = cartEntries.map(buildCartItem).join("");
+  cartEmpty.hidden = cartEntries.length > 0;
+  checkoutButton.disabled = cartEntries.length === 0;
+  document.querySelector("#cart-subtotal").textContent = cartTotal;
+  document.querySelector("#cart-total").textContent = cartTotal;
+
+  updateCartCount();
+}
+
+function handleCartClick(event) {
+  const quantityButton = event.target.closest(".quantity-btn");
+  const removeButton = event.target.closest(".cart-item-remove");
+
+  if (quantityButton) {
+    const quantityChange =
+      quantityButton.dataset.action === "increase" ? 1 : -1;
+    changeQuantity(quantityButton.dataset.id, quantityChange);
+  } else if (removeButton) {
+    removeFromCart(removeButton.dataset.id);
+  } else {
+    return;
+  }
+
+  renderCartPage(allProducts);
+}
+
+function initCartPage() {
+  const cartList = document.querySelector("#cart-items");
+  if (!cartList) return;
+
+  getProducts().then((products) => {
+    allProducts = products;
+    renderCartPage(allProducts);
+  });
+
+  cartList.addEventListener("click", handleCartClick);
+}
+
 function init() {
   updateCartCount();
   initHeader();
@@ -285,6 +330,7 @@ function init() {
   initShowcase();
   initBoutiqueStatus();
   initProductDetail();
+  initCartPage();
 }
 
 init();
