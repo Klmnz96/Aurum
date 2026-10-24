@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Product - Aurum</title>
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
     <link rel="stylesheet" href="../css/fonts.css" />
     <link rel="stylesheet" href="../css/standard.css" />
     <link rel="stylesheet" href="../style.css" />
@@ -16,7 +19,7 @@
           <img src="../assets/icons/logo.svg" alt="" width="28" height="28" />
           <span>AURUM</span>
         </a>
-        <nav class="site-nav" aria-label="Main navigation">
+        <nav class="site-nav" id="site-nav" aria-label="Main navigation">
           <ul>
             <li><a href="collection.html">Collection</a></li>
             <li><a href="heritage.html">Heritage</a></li>
@@ -26,8 +29,8 @@
 
         <div class="header-actions">
           <!--Warenkorb-->
-          <a href="cart.html" class="cart-link" aria-label="Cart">
-            <img src="../assets/icons/cart.svg" alt="" width="22" height="22" />
+          <a href="cart.html" class="cart-link">
+            Cart
             <span class="cart-count" id="cart-count">0</span>
           </a>
           <button
@@ -46,91 +49,114 @@
       </div>
     </header>
 
-    <main id="main" class="section">
+    <main id="main" class="section product-page">
       <div class="container">
-        <a href="collection.html" class="link-arrow">
+        <a href="collection.html" class="link-arrow back-link">
           <img
             src="../assets/icons/arrow-left.svg"
             alt=""
             width="20"
             height="20"
           />
-          Back to Collection
+          Back to the collection
         </a>
 
-        <!--JS füllt hier alles rein-->
+        <!--JS füllt hier alles rein (Vorlage für buildProductDetail siehe unten)-->
         <article class="product" id="product"></article>
+
+        <!--
+          VORLAGE für buildProductDetail(product): diese Struktur in <article id="product"> rendern.
+          Die Klassen sind in style.css schon fertig gestaltet (Abschnitt "Produktseite").
+
+          <div class="product-gallery">
+            <figure class="product-main-image">
+              <img src="images[0]" alt="Meridian" id="product-main-image" />
+            </figure>
+            <ul class="product-thumbs">
+              <li>
+                <button class="product-thumb is-active" type="button" data-image="images[0]">
+                  <img src="images[0]" alt="" />
+                </button>
+              </li>
+              ... (ein <li> pro Bild, 4 Stück; aktives Bild bekommt .is-active)
+            </ul>
+          </div>
+
+          <div class="product-info">
+            <h1 class="product-name">Meridian</h1>
+            <p class="product-price">$11,800</p>
+            <p class="product-category">Diver, 41mm</p>
+            <p class="product-summary">summary</p>
+            <button class="button product-add" type="button" data-id="meridian">Add to selection</button>
+            <dl class="product-specs">
+              <div><dt>Case</dt><dd>41mm</dd></div>
+              <div><dt>Material</dt><dd>Stainless steel & black ceramic</dd></div>
+              <div><dt>Movement</dt><dd>Automatic, 70-hour power reserve</dd></div>
+              <div><dt>Water resistance</dt><dd>300m</dd></div>
+            </dl>
+            <div class="product-description">
+              <p>description[0]</p>
+              <p>description[1]</p>
+            </div>
+          </div>
+        -->
       </div>
     </main>
 
+    <!--Footer: der Name läuft über das letzte Foto-->
     <footer class="site-footer">
-      <div class="container">
-        <!--Newsletter-->
-        <div class="footer-newsletter">
-          <h3>Be the first to know about new pieces.</h3>
-          <form class="newsletter-form">
-            <input type="email" placeholder="Your email" required />
-            <button type="submit" class="button">Subscribe</button>
-          </form>
-        </div>
-
+      <figure class="footer-media">
+        <img
+          src="../assets/images/rolex-watchmaking.jpg"
+          alt=""
+          width="2400"
+          height="1200"
+          loading="lazy"
+        />
+      </figure>
+      <div class="container footer-inner">
         <div class="footer-top">
-          <div class="footer-col">
-            <a href="../index.html" class="logo">
-              <img
-                src="../assets/icons/logo.svg"
-                alt=""
-                width="28"
-                height="28"
+          <nav class="footer-col" aria-label="Footer navigation" data-reveal style="--i: 0">
+            <h2 class="footer-label">Explore</h2>
+            <ul>
+              <li><a href="collection.html">Collection</a></li>
+              <li><a href="heritage.html">Heritage</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="#">Instagram</a></li>
+              <li><a href="#">LinkedIn</a></li>
+            </ul>
+          </nav>
+
+          <!--Newsletter-->
+          <div class="footer-col footer-newsletter" data-reveal style="--i: 1">
+            <h2 class="footer-label">Hear about new pieces first</h2>
+            <form class="newsletter-form">
+              <label for="newsletter-email" class="visually-hidden"
+                >Email address</label
+              >
+              <input
+                type="email"
+                id="newsletter-email"
+                placeholder="Your email"
+                required
               />
-              <span>AURUM</span>
-            </a>
-            <p class="footer-tagline">Swiss inspired watchmaking, est. 1998.</p>
+              <button type="submit" class="button">Subscribe</button>
+            </form>
           </div>
-          <div class="footer-col">
-            <p class="footer-label">Boutique</p>
+
+          <div class="footer-col" data-reveal style="--i: 2">
+            <h2 class="footer-label">Boutique</h2>
             <address>
               12 Rue du Rhône, Geneva<br />
               concierge@aurum-watches.com<br />
               +41 22 000 00 00
             </address>
           </div>
-
-          <div class="footer-col">
-            <p class="footer-label">Explore</p>
-            <nav aria-label="Footer navigation">
-              <ul>
-                <li><a href="collection.html">Collection</a></li>
-                <li><a href="heritage.html">Heritage</a></li>
-                <li><a href="contact.html">Contact</a></li>
-              </ul>
-            </nav>
-          </div>
         </div>
+
         <div class="footer-bottom">
-          <p>&copy; 2026 Aurum. All rights reserved.</p>
-          <ul class="socials">
-            <li>
-              <a href="#" aria-label="Instagram">
-                <img
-                  src="../assets/icons/instagram.svg"
-                  alt=""
-                  width="20"
-                  height="20"
-                />
-              </a>
-            </li>
-            <li>
-              <a href="#" aria-label="LinkedIn">
-                <img
-                  src="../assets/icons/linkedin.svg"
-                  alt=""
-                  width="20"
-                  height="20"
-                />
-              </a>
-            </li>
-          </ul>
+          <p class="footer-wordmark" aria-hidden="true" data-reveal>AURUM</p>
+          <p class="footer-legal">&copy; 2026 Aurum. All rights reserved.</p>
         </div>
       </div>
     </footer>

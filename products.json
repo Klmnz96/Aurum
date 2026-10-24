@@ -20,7 +20,12 @@
         "assets/images/rolex-close-up.jpg",
         "assets/images/rolex-wrist.jpg",
         "assets/images/rolex-crown-detail.jpg"
-      ]
+      ],
+      "focus": {
+        "x": 0.4,
+        "y": 0.6,
+        "caseSize": 0.38
+      }
     },
     {
       "id": "regent",
@@ -42,7 +47,12 @@
         "assets/images/cartier-close-up.jpg",
         "assets/images/cartier-wrist.jpg",
         "assets/images/cartier-crown-detail.jpg"
-      ]
+      ],
+      "focus": {
+        "x": 0.61,
+        "y": 0.56,
+        "caseSize": 0.41
+      }
     },
     {
       "id": "calibre",
@@ -64,7 +74,12 @@
         "assets/images/patek-close-up.jpg",
         "assets/images/patek-wrist.jpg",
         "assets/images/patek-crown-detail.jpg"
-      ]
+      ],
+      "focus": {
+        "x": 0.455,
+        "y": 0.575,
+        "caseSize": 0.53
+      }
     },
     {
       "id": "apex",
@@ -86,7 +101,12 @@
         "assets/images/audemars-close-up.jpg",
         "assets/images/audemars-wrist.jpg",
         "assets/images/audemars-crown-detail.jpg"
-      ]
+      ],
+      "focus": {
+        "x": 0.46,
+        "y": 0.46,
+        "caseSize": 0.7
+      }
     },
     {
       "id": "velocity",
@@ -108,7 +128,12 @@
         "assets/images/richard-mille-close-up.webp",
         "assets/images/richard-mille-wrist.jpg",
         "assets/images/richard-mille-crown-detail.jpg"
-      ]
+      ],
+      "focus": {
+        "x": 0.475,
+        "y": 0.5,
+        "caseSize": 0.66
+      }
     }
   ]
 }

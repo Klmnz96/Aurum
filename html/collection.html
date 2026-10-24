@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Collection - Aurum</title>
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
     <link rel="stylesheet" href="../css/fonts.css" />
     <link rel="stylesheet" href="../css/standard.css" />
     <link rel="stylesheet" href="../style.css" />
@@ -16,7 +19,7 @@
           <img src="../assets/icons/logo.svg" alt="" width="28" height="28" />
           <span>AURUM</span>
         </a>
-        <nav class="site-nav" aria-label="Main navigation">
+        <nav class="site-nav" id="site-nav" aria-label="Main navigation">
           <ul>
             <li>
               <a href="collection.html" aria-current="page">Collection</a>
@@ -28,8 +31,8 @@
 
         <div class="header-actions">
           <!--Warenkorb-->
-          <a href="cart.html" class="cart-link" aria-label="Cart">
-            <img src="../assets/icons/cart.svg" alt="" width="22" height="22" />
+          <a href="cart.html" class="cart-link">
+            Cart
             <span class="cart-count" id="cart-count">0</span>
           </a>
           <button
@@ -48,96 +51,114 @@
       </div>
     </header>
 
-    <main class="section" id="main">
-      <div class="container">
-        <header class="page-head">
-          <h1>Five pieces. No compromises.</h1>
-        </header>
-
-        <!--Filter Button-->
-        <div class="filter-bar">
-          <button class="filter-btn" data-category="all">All</button>
-          <button class="filter-btn" data-category="Diver">Diver</button>
-          <button class="filter-btn" data-category="Dress">Dress</button>
-          <button class="filter-btn" data-category="Heritage">Heritage</button>
-          <button class="filter-btn" data-category="Sport">Sport</button>
-          <button class="filter-btn" data-category="Avant-Garde">
-            Avant-Garde
-          </button>
+    <main id="main">
+      <!--Seitenkopf: Text auf dem Panel, Bild liegt auf der Kante-->
+      <section class="page-intro">
+        <div class="container page-intro-grid">
+          <div class="page-intro-text">
+            <h1 class="lines">
+              <span class="line"
+                ><span data-line style="--i: 0">Five pieces.</span></span
+              >
+            <span class="line page-intro-soft"
+              ><span data-line style="--i: 1">No compromises.</span></span
+            >
+            </h1>
+            <p data-load style="--delay: 420ms">
+              Every Aurum reference, from the 38mm Regent in rose gold to the carbon
+              Velocity. Each one assembled and regulated in Geneva.
+            </p>
+          </div>
+          <figure class="page-intro-media" data-shutter>
+            <img
+              src="../assets/images/audemars-crown-detail.jpg"
+              alt="The Apex case and crown in brushed titanium"
+              width="2200"
+              height="1467"
+              fetchpriority="high"
+            />
+          </figure>
         </div>
+      </section>
 
-        <ul class="product-grid" id="product-grid"></ul>
-      </div>
+      <!--Alle Referenzen mit Filter-->
+      <section class="section section-collection">
+        <div class="container">
+          <div class="collection-head">
+            <h2 data-reveal>All five references</h2>
+
+            <!--Filter Button-->
+            <div class="filter-bar" data-reveal style="--i: 1">
+              <button class="filter-btn is-active" data-category="all">All</button>
+              <button class="filter-btn" data-category="Diver">Diver</button>
+              <button class="filter-btn" data-category="Dress">Dress</button>
+              <button class="filter-btn" data-category="Heritage">Heritage</button>
+              <button class="filter-btn" data-category="Sport">Sport</button>
+              <button class="filter-btn" data-category="Avant-Garde">
+                Avant-Garde
+              </button>
+            </div>
+          </div>
+
+          <ul class="product-grid" id="product-grid"></ul>
+        </div>
+      </section>
     </main>
 
+    <!--Footer: der Name läuft über das letzte Foto-->
     <footer class="site-footer">
-      <div class="container">
-        <!--Newsletter-->
-        <div class="footer-newsletter">
-          <h3>Be the first to know about new pieces.</h3>
-          <form class="newsletter-form">
-            <input type="email" placeholder="Your email" required />
-            <button type="submit" class="button">Subscribe</button>
-          </form>
-        </div>
-
+      <figure class="footer-media">
+        <img
+          src="../assets/images/rolex-watchmaking.jpg"
+          alt=""
+          width="2400"
+          height="1200"
+          loading="lazy"
+        />
+      </figure>
+      <div class="container footer-inner">
         <div class="footer-top">
-          <div class="footer-col">
-            <a href="../index.html" class="logo">
-              <img
-                src="../assets/icons/logo.svg"
-                alt=""
-                width="28"
-                height="28"
+          <nav class="footer-col" aria-label="Footer navigation" data-reveal style="--i: 0">
+            <h2 class="footer-label">Explore</h2>
+            <ul>
+              <li><a href="collection.html">Collection</a></li>
+              <li><a href="heritage.html">Heritage</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="#">Instagram</a></li>
+              <li><a href="#">LinkedIn</a></li>
+            </ul>
+          </nav>
+
+          <!--Newsletter-->
+          <div class="footer-col footer-newsletter" data-reveal style="--i: 1">
+            <h2 class="footer-label">Hear about new pieces first</h2>
+            <form class="newsletter-form">
+              <label for="newsletter-email" class="visually-hidden"
+                >Email address</label
+              >
+              <input
+                type="email"
+                id="newsletter-email"
+                placeholder="Your email"
+                required
               />
-              <span>AURUM</span>
-            </a>
-            <p class="footer-tagline">Swiss inspired watchmaking, est. 1998.</p>
+              <button type="submit" class="button">Subscribe</button>
+            </form>
           </div>
-          <div class="footer-col">
-            <p class="footer-label">Boutique</p>
+
+          <div class="footer-col" data-reveal style="--i: 2">
+            <h2 class="footer-label">Boutique</h2>
             <address>
               12 Rue du Rhône, Geneva<br />
               concierge@aurum-watches.com<br />
               +41 22 000 00 00
             </address>
           </div>
-
-          <div class="footer-col">
-            <p class="footer-label">Explore</p>
-            <nav aria-label="Footer navigation">
-              <ul>
-                <li><a href="collection.html">Collection</a></li>
-                <li><a href="heritage.html">Heritage</a></li>
-                <li><a href="contact.html">Contact</a></li>
-              </ul>
-            </nav>
-          </div>
         </div>
+
         <div class="footer-bottom">
-          <p>&copy; 2026 Aurum. All rights reserved.</p>
-          <ul class="socials">
-            <li>
-              <a href="#" aria-label="Instagram">
-                <img
-                  src="../assets/icons/instagram.svg"
-                  alt=""
-                  width="20"
-                  height="20"
-                />
-              </a>
-            </li>
-            <li>
-              <a href="#" aria-label="LinkedIn">
-                <img
-                  src="../assets/icons/linkedin.svg"
-                  alt=""
-                  width="20"
-                  height="20"
-                />
-              </a>
-            </li>
-          </ul>
+          <p class="footer-wordmark" aria-hidden="true" data-reveal>AURUM</p>
+          <p class="footer-legal">&copy; 2026 Aurum. All rights reserved.</p>
         </div>
       </div>
     </footer>

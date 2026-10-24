@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cart - Aurum</title>
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
     <link rel="stylesheet" href="../css/fonts.css" />
     <link rel="stylesheet" href="../css/standard.css" />
     <link rel="stylesheet" href="../style.css" />
@@ -16,7 +19,7 @@
           <img src="../assets/icons/logo.svg" alt="" width="28" height="28" />
           <span>AURUM</span>
         </a>
-        <nav class="site-nav" aria-label="Main navigation">
+        <nav class="site-nav" id="site-nav" aria-label="Main navigation">
           <ul>
             <li><a href="collection.html">Collection</a></li>
             <li><a href="heritage.html">Heritage</a></li>
@@ -26,8 +29,8 @@
 
         <div class="header-actions">
           <!--Warenkorb-->
-          <a href="cart.html" class="cart-link" aria-label="Cart">
-            <img src="../assets/icons/cart.svg" alt="" width="22" height="22" />
+          <a href="cart.html" class="cart-link">
+            Cart
             <span class="cart-count" id="cart-count">0</span>
           </a>
           <button
@@ -46,90 +49,169 @@
       </div>
     </header>
 
-    <main id="main" class="section">
+    <main id="main" class="section cart-page">
       <div class="container">
-        <header class="page-head">
+        <header class="page-head cart-head">
           <h1>Your selection</h1>
+          <p>
+            Pieces you add are kept here until you check out or book a viewing
+            to try them on in Geneva.
+          </p>
         </header>
 
-        <!--JS füllt hier pro Artikel-->
-        <ul class="cart-items" id="cart-items"></ul>
+        <div class="cart-layout">
+          <div class="cart-main">
+            <!--Leerer Warenkorb: per JS ausblenden (hidden), sobald Artikel drin sind-->
+            <div class="cart-empty" id="cart-empty">
+              <figure class="cart-empty-media">
+                <img
+                  src="../assets/images/rolex-wrist.jpg"
+                  alt="The Meridian on the wrist"
+                  width="800"
+                  height="800"
+                />
+              </figure>
+              <div class="cart-empty-text">
+                <h2>Nothing selected yet</h2>
+                <p>
+                  Start with the collection, or book a private viewing and try
+                  the pieces on at 12 Rue du Rhône.
+                </p>
+                <a href="collection.html" class="button">Browse the collection</a>
+              </div>
+            </div>
 
-        <div class="cart-summary">
-          <p class="cart-total">Total: <span id="cart-total">$0</span></p>
-          <button class="button" id="checkout-btn">Checkout</button>
+            <!--JS füllt hier pro Artikel-->
+            <ul class="cart-items" id="cart-items"></ul>
+
+            <!--
+              VORLAGE für einen Artikel (z. B. buildCartItem(product, quantity)):
+
+              <li class="cart-item">
+                <figure class="cart-item-media watch-frame" style="getWatchFocusStyle(product.focus)">
+                  <img src="product.thumb" alt="Meridian" />
+                </figure>
+                <div class="cart-item-info">
+                  <h3 class="cart-item-name">Meridian</h3>
+                  <p class="cart-item-meta">Diver, 41mm</p>
+                  <button class="cart-item-remove" type="button" data-id="meridian">Remove</button>
+                </div>
+                <div class="cart-item-quantity">
+                  <button class="quantity-btn" type="button" data-action="decrease" data-id="meridian" aria-label="One less">
+                    <img src="../assets/icons/minus.svg" alt="" width="16" height="16" />
+                  </button>
+                  <span>1</span>
+                  <button class="quantity-btn" type="button" data-action="increase" data-id="meridian" aria-label="One more">
+                    <img src="../assets/icons/plus.svg" alt="" width="16" height="16" />
+                  </button>
+                </div>
+                <p class="cart-item-price">$11,800</p>
+              </li>
+            -->
+          </div>
+
+          <aside class="cart-summary" aria-labelledby="summary-heading">
+            <h2 id="summary-heading">Summary</h2>
+            <dl class="cart-lines">
+              <div>
+                <dt>Subtotal</dt>
+                <dd id="cart-subtotal">$0</dd>
+              </div>
+              <div>
+                <dt>Insured shipping</dt>
+                <dd>Complimentary</dd>
+              </div>
+            </dl>
+            <p class="cart-total">Total <span id="cart-total">$0</span></p>
+            <button class="button" id="checkout-btn">Checkout</button>
+            <p class="cart-note">
+              Every piece ships insured from Geneva, or can be collected at the
+              boutique.
+            </p>
+          </aside>
         </div>
       </div>
+
+      <!--Erst anprobieren? Verweis auf die private Besichtigung-->
+      <section class="cart-viewing">
+        <div class="container cart-viewing-grid">
+          <figure class="cart-viewing-media" data-reveal>
+            <img
+              src="../assets/images/patek-wrist.jpg"
+              alt="The Calibre worn with a dark suit"
+              width="1690"
+              height="1280"
+              loading="lazy"
+            />
+          </figure>
+          <div class="cart-viewing-text">
+            <h2 data-reveal style="--i: 1">Try them on first</h2>
+            <p data-reveal style="--i: 2">
+              Book a private viewing at 12 Rue du Rhône. Your selection will be
+              waiting at the table.
+            </p>
+            <a href="contact.html" class="button" data-reveal style="--i: 3"
+              >Book a private viewing</a
+            >
+          </div>
+        </div>
+      </section>
     </main>
 
+    <!--Footer: der Name läuft über das letzte Foto-->
     <footer class="site-footer">
-      <div class="container">
-        <!--Newsletter-->
-        <div class="footer-newsletter">
-          <h3>Be the first to know about new pieces.</h3>
-          <form class="newsletter-form">
-            <input type="email" placeholder="Your email" required />
-            <button type="submit" class="button">Subscribe</button>
-          </form>
-        </div>
-
+      <figure class="footer-media">
+        <img
+          src="../assets/images/rolex-watchmaking.jpg"
+          alt=""
+          width="2400"
+          height="1200"
+          loading="lazy"
+        />
+      </figure>
+      <div class="container footer-inner">
         <div class="footer-top">
-          <div class="footer-col">
-            <a href="../index.html" class="logo">
-              <img
-                src="../assets/icons/logo.svg"
-                alt=""
-                width="28"
-                height="28"
+          <nav class="footer-col" aria-label="Footer navigation" data-reveal style="--i: 0">
+            <h2 class="footer-label">Explore</h2>
+            <ul>
+              <li><a href="collection.html">Collection</a></li>
+              <li><a href="heritage.html">Heritage</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="#">Instagram</a></li>
+              <li><a href="#">LinkedIn</a></li>
+            </ul>
+          </nav>
+
+          <!--Newsletter-->
+          <div class="footer-col footer-newsletter" data-reveal style="--i: 1">
+            <h2 class="footer-label">Hear about new pieces first</h2>
+            <form class="newsletter-form">
+              <label for="newsletter-email" class="visually-hidden"
+                >Email address</label
+              >
+              <input
+                type="email"
+                id="newsletter-email"
+                placeholder="Your email"
+                required
               />
-              <span>AURUM</span>
-            </a>
-            <p class="footer-tagline">Swiss inspired watchmaking, est. 1998.</p>
+              <button type="submit" class="button">Subscribe</button>
+            </form>
           </div>
-          <div class="footer-col">
-            <p class="footer-label">Boutique</p>
+
+          <div class="footer-col" data-reveal style="--i: 2">
+            <h2 class="footer-label">Boutique</h2>
             <address>
               12 Rue du Rhône, Geneva<br />
               concierge@aurum-watches.com<br />
               +41 22 000 00 00
             </address>
           </div>
-
-          <div class="footer-col">
-            <p class="footer-label">Explore</p>
-            <nav aria-label="Footer navigation">
-              <ul>
-                <li><a href="collection.html">Collection</a></li>
-                <li><a href="heritage.html">Heritage</a></li>
-                <li><a href="contact.html">Contact</a></li>
-              </ul>
-            </nav>
-          </div>
         </div>
+
         <div class="footer-bottom">
-          <p>&copy; 2026 Aurum. All rights reserved.</p>
-          <ul class="socials">
-            <li>
-              <a href="#" aria-label="Instagram">
-                <img
-                  src="../assets/icons/instagram.svg"
-                  alt=""
-                  width="20"
-                  height="20"
-                />
-              </a>
-            </li>
-            <li>
-              <a href="#" aria-label="LinkedIn">
-                <img
-                  src="../assets/icons/linkedin.svg"
-                  alt=""
-                  width="20"
-                  height="20"
-                />
-              </a>
-            </li>
-          </ul>
+          <p class="footer-wordmark" aria-hidden="true" data-reveal>AURUM</p>
+          <p class="footer-legal">&copy; 2026 Aurum. All rights reserved.</p>
         </div>
       </div>
     </footer>

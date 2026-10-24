@@ -1,8 +1,31 @@
 let allProducts = [];
 
+// Öffnungszeiten der Boutique (Genfer Ortszeit), Sonntag geschlossen
+const boutiqueHours = {
+  Mon: { open: "10:00", close: "18:30" },
+  Tue: { open: "10:00", close: "18:30" },
+  Wed: { open: "10:00", close: "18:30" },
+  Thu: { open: "10:00", close: "18:30" },
+  Fri: { open: "10:00", close: "18:30" },
+  Sat: { open: "10:00", close: "17:00" },
+  Sun: null,
+};
+
+const weekdayOrder = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+const weekdayNames = {
+  Mon: "Monday",
+  Tue: "Tuesday",
+  Wed: "Wednesday",
+  Thu: "Thursday",
+  Fri: "Friday",
+  Sat: "Saturday",
+  Sun: "Sunday",
+};
+
 function initHeader() {
   const header = document.querySelector(".site-header");
-  const hero = document.querySelector(".hero");
+  const hero = document.querySelector(".hero, .page-intro");
   if (!header || !hero) return;
 
   // Unsichtbarer Marker kurz unterm Seitenanfang statt eines scroll-Events:
@@ -10,7 +33,7 @@ function initHeader() {
   const heroSentinel = document.createElement("div");
   heroSentinel.setAttribute("aria-hidden", "true");
   heroSentinel.style.cssText =
-    "position:absolute;top:40px;left:0;width:1px;height:1px;";
+    "position:absolute;top:40px;left:0;width:1px;height:1px;"; // taste-skill-ignore: unsichtbarer Marker, keine Linie
   hero.prepend(heroSentinel);
 
   const headerObserver = new IntersectionObserver(([entry]) => {
@@ -21,7 +44,7 @@ function initHeader() {
 }
 
 function initScrollReveal() {
-  const revealElements = document.querySelectorAll("[data-reveal]");
+  const revealElements = document.querySelectorAll("[data-reveal], [data-disc]");
   if (!revealElements.length) return;
 
   const prefersReducedMotion = window.matchMedia(
@@ -33,19 +56,29 @@ function initScrollReveal() {
     return;
   }
 
+  // Elemente mit clip-path (der Kreis startet bei 0 %) meldet der Observer nie als
+  // sichtbar -> stattdessen das Elternelement beobachten und das Kind einblenden
+  const revealTargets = new Map();
+
   const revealObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
+          revealTargets.get(entry.target).classList.add("is-visible");
           revealObserver.unobserve(entry.target);
         }
       });
     },
-    { threshold: 0.2 },
+    { rootMargin: "0px 0px -12% 0px", threshold: 0.1 },
   );
 
-  revealElements.forEach((element) => revealObserver.observe(element));
+  revealElements.forEach((element) => {
+    const observedElement = element.hasAttribute("data-disc")
+      ? element.parentElement
+      : element;
+    revealTargets.set(observedElement, element);
+    revealObserver.observe(observedElement);
+  });
 }
 
 function renderProductGrid(gridElement, products) {
@@ -93,11 +126,100 @@ function initCollectionGrid() {
   filterBar.addEventListener("click", handleFilterClick);
 }
 
+function showReference(product) {
+  const referenceImage = document.querySelector("#reference-image");
+  const referenceDetail = document.querySelector("#reference-detail");
+
+  referenceImage.src = getAssetPath(product.thumb);
+  referenceImage.alt = product.name;
+  referenceImage.style.cssText = getWatchFocusStyle(product.focus);
+  referenceDetail.innerHTML = buildReferenceDetail(product);
+
+  document.querySelectorAll(".reference-button").forEach((button) => {
+    button.setAttribute("aria-pressed", button.dataset.id === product.id);
+  });
+
+  // kurzes Überblenden beim Wechsel (300ms), nicht bei reduzierter Bewegung
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+  if (!prefersReducedMotion) {
+    referenceImage.animate([{ opacity: 0 }, { opacity: 1 }], {
+      duration: 300,
+      easing: "ease",
+    });
+  }
+}
+
+function handleReferenceClick(event) {
+  const clickedButton = event.target.closest(".reference-button");
+  if (!clickedButton) return;
+
+  const selectedProduct = allProducts.find(
+    (product) => product.id === clickedButton.dataset.id,
+  );
+  showReference(selectedProduct);
+}
+
+function initShowcase() {
+  const referenceList = document.querySelector("#reference-list");
+  if (!referenceList) return;
+
+  getProducts().then((products) => {
+    allProducts = products;
+    referenceList.innerHTML = products.map(buildReferenceButton).join("");
+    showReference(products[0]);
+  });
+
+  referenceList.addEventListener("click", handleReferenceClick);
+}
+
+function findNextOpening(currentWeekday) {
+  const currentIndex = weekdayOrder.indexOf(currentWeekday);
+
+  for (let dayOffset = 1; dayOffset <= 7; dayOffset++) {
+    const nextWeekday = weekdayOrder[(currentIndex + dayOffset) % 7];
+    if (boutiqueHours[nextWeekday]) {
+      const dayLabel = dayOffset === 1 ? "tomorrow" : weekdayNames[nextWeekday];
+      return `${dayLabel} at ${boutiqueHours[nextWeekday].open}`;
+    }
+  }
+}
+
+function getBoutiqueStatusText(genevaTime) {
+  const todaysHours = boutiqueHours[genevaTime.weekday];
+  const timeSentence = `It is ${genevaTime.label} in Geneva.`;
+
+  if (todaysHours && genevaTime.minutes < timeToMinutes(todaysHours.open)) {
+    return `${timeSentence} The boutique opens today at ${todaysHours.open}.`;
+  }
+
+  if (todaysHours && genevaTime.minutes < timeToMinutes(todaysHours.close)) {
+    return `${timeSentence} The boutique is open until ${todaysHours.close}.`;
+  }
+
+  return `${timeSentence} The boutique opens ${findNextOpening(genevaTime.weekday)}.`;
+}
+
+function initBoutiqueStatus() {
+  const boutiqueStatus = document.querySelector("#boutique-status");
+  if (!boutiqueStatus) return;
+
+  const updateBoutiqueStatus = () => {
+    boutiqueStatus.textContent = getBoutiqueStatusText(getGenevaTime());
+  };
+
+  updateBoutiqueStatus();
+  setInterval(updateBoutiqueStatus, 30000);
+}
+
 function init() {
   initHeader();
   initScrollReveal();
   initFeaturedGrid();
   initCollectionGrid();
+  initShowcase();
+  initBoutiqueStatus();
 }
 
 init();

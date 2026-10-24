@@ -3,7 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aurum</title>
+    <title>Aurum - Mechanical watches from Geneva</title>
+    <!--Markiert, dass JS läuft: Animationen verstecken Inhalte nur dann-->
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+    <link
+      rel="preload"
+      href="./assets/fonts/cormorant-garamond-v21-latin-500.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <link rel="stylesheet" href="./css/fonts.css" />
     <link rel="stylesheet" href="./css/standard.css" />
     <link rel="stylesheet" href="style.css" />
@@ -16,7 +27,7 @@
           <img src="./assets/icons/logo.svg" alt="" width="28" height="28" />
           <span>AURUM</span>
         </a>
-        <nav class="site-nav" aria-label="Main navigation">
+        <nav class="site-nav" id="site-nav" aria-label="Main navigation">
           <ul>
             <li><a href="html/collection.html">Collection</a></li>
             <li><a href="html/heritage.html">Heritage</a></li>
@@ -26,8 +37,8 @@
 
         <div class="header-actions">
           <!--Warenkorb-->
-          <a href="html/cart.html" class="cart-link" aria-label="Cart">
-            <img src="./assets/icons/cart.svg" alt="" width="22" height="22" />
+          <a href="html/cart.html" class="cart-link">
+            Cart
             <span class="cart-count" id="cart-count">0</span>
           </a>
           <button
@@ -47,156 +58,262 @@
     </header>
 
     <main id="main">
-      <!--Hero-->
+      <!--Hero: die Uhr liegt auf der Kante zwischen dunklem Panel und Seitengrund-->
       <section class="hero">
-        <div class="container hero-grid">
-          <div class="hero-text">
-            <p class="eyebrow">Swiss Inspired Watchmaking</p>
-            <h1>Time, Considered</h1>
+        <figure class="hero-media" data-shutter>
+          <img
+            src="./assets/images/hero-img.jpg"
+            alt="Aurum skeleton tourbillon in rose gold on a blue alligator strap"
+            width="2764"
+            height="3429"
+            fetchpriority="high"
+          />
+        </figure>
+
+        <div class="container hero-copy">
+          <h1 class="hero-title lines">
+            <span class="line"
+              ><span data-line style="--i: 0"
+                >Five watches from Geneva.</span
+              ></span
+            >
+            <span class="line hero-title-soft"
+              ><span data-line style="--i: 1"
+                >Each regulated by hand.</span
+              ></span
+            >
+          </h1>
+          <div class="hero-body">
+            <p data-load style="--delay: 420ms">
+              Aurum has built mechanical watches at 12 Rue du Rhône since 1998.
+              Five references, from a 38mm dress watch in rose gold to a carbon
+              tonneau.
+            </p>
+            <a
+              href="html/collection.html"
+              class="button"
+              data-load
+              style="--delay: 500ms"
+              >View the collection</a
+            >
           </div>
-          <figure class="hero-media">
-            <img
-              src="./assets/images/hero-img.jpg"
-              alt="Aurum skeleton watch on black"
-            />
-          </figure>
         </div>
       </section>
 
-      <!--Markenstatement-->
+      <!--Markenstatement: schmale Textspalte + drei Detailaufnahmen-->
       <section class="section section-intro">
         <div class="container intro-grid">
-          <div class="intro-text" data-reveal>
-            <p class="lead">
-              Aurum builds watches with one rule: nothing on the case that
-              doesn't earn its place.
+          <div class="intro-text">
+            <h2 data-reveal style="--i: 0">One rule since 1998</h2>
+            <p class="intro-lead" data-reveal style="--i: 1">
+              Nothing goes on the case that doesn't earn its place.
             </p>
-            <a href="html/heritage.html" class="link-arrow">
-              Our heritage
-              <img
-                src="./assets/icons/arrow-right.svg"
-                alt=""
-                width="20"
-                height="20"
-              />
-            </a>
+            <p data-reveal style="--i: 2">
+              That is the whole brief. It is why the Regent has no date window,
+              why the Meridian's bezel turns one way only, and why the Calibre
+              has changed twice in three decades.
+            </p>
+            <p data-reveal style="--i: 3">
+              Every movement is regulated to within two seconds a day before it
+              leaves the workshop. We treat that tolerance as the floor, not
+              the achievement.
+            </p>
           </div>
 
-          <dl class="intro-stats" data-reveal>
-            <div>
-              <dt>Est.</dt>
-              <dd>1998</dd>
-            </div>
-            <div>
-              <dt>References</dt>
-              <dd>5</dd>
-            </div>
-            <div>
-              <dt>Assembled</dt>
-              <dd>Geneva</dd>
-            </div>
-          </dl>
+          <div class="intro-details">
+            <figure class="detail detail-wide" data-reveal style="--i: 1">
+              <img
+                src="./assets/images/rolex-crown-detail.jpg"
+                alt="Side view of the Meridian case and bezel"
+                width="1920"
+                height="1280"
+                loading="lazy"
+              />
+              <figcaption>Meridian, the bezel and crown guard</figcaption>
+            </figure>
+            <figure class="detail detail-tall" data-reveal style="--i: 2">
+              <img
+                src="./assets/images/cartier-crown-detail.jpg"
+                alt="Blue cabochon crown on the Regent"
+                width="678"
+                height="452"
+                loading="lazy"
+              />
+              <figcaption>Regent, the cabochon crown</figcaption>
+            </figure>
+            <figure class="detail detail-square" data-reveal style="--i: 3">
+              <img
+                src="./assets/images/richard-mille-crown-detail.jpg"
+                alt="Rose gold crown on a tonneau case"
+                width="547"
+                height="365"
+                loading="lazy"
+              />
+              <figcaption>Velocity, the crown</figcaption>
+            </figure>
+          </div>
         </div>
       </section>
 
-      <!--Ausgewählte Modelle-->
-      <section class="section section-featured">
-        <div class="container">
-          <h2 data-reveal>The Collection</h2>
-          <ul class="product-grid" id="featured-grid"></ul>
-          <!--Wird per JS eingefügt-->
-          <a href="html/collection.html" class="link-arrow">
-            View all pieces
+      <!--Die fünf Referenzen: Name wählen, Uhr im Kreis wechselt (per JS aus products.json)-->
+      <section class="section section-showcase" id="references">
+        <div class="container showcase-grid">
+          <div class="showcase-list" data-reveal style="--i: 0">
+            <h2 class="showcase-heading">The five references</h2>
+            <ul class="reference-list" id="reference-list">
+              <!--Wird per JS eingefügt-->
+            </ul>
+          </div>
+
+          <figure class="reference-disc watch-frame" data-disc>
             <img
-              src="./assets/icons/arrow-right.svg"
-              alt=""
-              width="20"
-              height="20"
+              src="./assets/images/rolex-signature.jpg"
+              alt="Meridian"
+              id="reference-image"
+              width="713"
+              height="429"
+              loading="lazy"
             />
-          </a>
+          </figure>
+
+          <div class="reference-detail" id="reference-detail" aria-live="polite">
+            <!--Wird per JS eingefügt; ohne JS bleibt der Link zur Kollektion-->
+            <a href="html/collection.html" class="link-arrow">
+              See all five in the collection
+            </a>
+          </div>
         </div>
       </section>
 
-      <!--CTA-->
-      <section class="section section-cta">
+      <!--Manufaktur: eingerücktes Goldpanel mit rundem Werkstattfoto-->
+      <section class="section-about">
+        <div class="about-panel">
+          <div class="about-statement">
+            <h2 data-reveal style="--i: 0">One watchmaker,<br />one watch.</h2>
+            <figure class="about-portrait" data-reveal style="--i: 1">
+              <img
+                src="./assets/images/audemars-watchmaking.webp"
+                alt="A watchmaker holding an open skeleton movement"
+                width="1200"
+                height="675"
+                loading="lazy"
+              />
+            </figure>
+          </div>
+
+          <div class="about-blocks">
+            <div data-reveal style="--i: 1">
+              <h3>Two seconds a day</h3>
+              <p>
+                Each movement spends three weeks on the regulating bench,
+                tested in six positions and at two temperatures. If it drifts
+                more than two seconds a day, it goes back.
+              </p>
+            </div>
+            <div data-reveal style="--i: 2">
+              <h3>First part to final seal</h3>
+              <p>
+                A Calibre is assembled by one watchmaker from start to finish.
+                Their initials are engraved under the rotor, where only the
+                next watchmaker to service it will read them.
+              </p>
+            </div>
+            <a
+              href="html/heritage.html"
+              class="button button-dark"
+              data-reveal
+              style="--i: 3"
+              >Read our heritage</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <!--Abschluss: die Uhr kommt zurück + Live-Uhrzeit der Boutique in Genf-->
+      <section class="section-cta">
         <figure class="cta-media">
-          <img src="./assets/images/cartier-crown-detail.jpg" alt="" />
+          <img
+            src="./assets/images/richard-mille-signature.jpg"
+            alt="The Velocity skeleton tonneau on dark marble"
+            width="3000"
+            height="1998"
+            loading="lazy"
+          />
         </figure>
-        <div class="container cta-content" data-reveal>
-          <h2>Reserve a private viewing</h2>
-          <a href="html/contact.html" class="button">Get in touch</a>
+        <div class="cta-content">
+          <h2 data-reveal style="--i: 0">See them in Geneva</h2>
+          <p data-reveal style="--i: 1">
+            Private viewings at 12 Rue du Rhône, by appointment, with a
+            watchmaker at the table.
+          </p>
+          <p class="boutique-status" id="boutique-status" data-reveal style="--i: 2">
+            Open Monday to Friday 10:00 to 18:30, Saturday 10:00 to 17:00.
+          </p>
+          <a
+            href="html/contact.html"
+            class="button"
+            data-reveal
+            style="--i: 3"
+            >Book a private viewing</a
+          >
         </div>
       </section>
     </main>
 
+    <!--Footer: der Name läuft über das letzte Foto-->
     <footer class="site-footer">
-      <div class="container">
-        <!--Newsletter-->
-        <div class="footer-newsletter">
-          <h3>Be the first to know about new pieces.</h3>
-          <form class="newsletter-form">
-            <input type="email" placeholder="Your email" required />
-            <button type="submit" class="button">Subscribe</button>
-          </form>
-        </div>
-
+      <figure class="footer-media">
+        <img
+          src="./assets/images/rolex-watchmaking.jpg"
+          alt=""
+          width="2400"
+          height="1200"
+          loading="lazy"
+        />
+      </figure>
+      <div class="container footer-inner">
         <div class="footer-top">
-          <div class="footer-col">
-            <a href="index.html" class="logo">
-              <img
-                src="./assets/icons/logo.svg"
-                alt=""
-                width="28"
-                height="28"
+          <nav class="footer-col" aria-label="Footer navigation" data-reveal style="--i: 0">
+            <h2 class="footer-label">Explore</h2>
+            <ul>
+              <li><a href="html/collection.html">Collection</a></li>
+              <li><a href="html/heritage.html">Heritage</a></li>
+              <li><a href="html/contact.html">Contact</a></li>
+              <li><a href="#">Instagram</a></li>
+              <li><a href="#">LinkedIn</a></li>
+            </ul>
+          </nav>
+
+          <!--Newsletter-->
+          <div class="footer-col footer-newsletter" data-reveal style="--i: 1">
+            <h2 class="footer-label">Hear about new pieces first</h2>
+            <form class="newsletter-form">
+              <label for="newsletter-email" class="visually-hidden"
+                >Email address</label
+              >
+              <input
+                type="email"
+                id="newsletter-email"
+                placeholder="Your email"
+                required
               />
-              <span>AURUM</span>
-            </a>
-            <p class="footer-tagline">Swiss inspired watchmaking, est. 1998.</p>
+              <button type="submit" class="button">Subscribe</button>
+            </form>
           </div>
-          <div class="footer-col">
-            <p class="footer-label">Boutique</p>
+
+          <div class="footer-col" data-reveal style="--i: 2">
+            <h2 class="footer-label">Boutique</h2>
             <address>
               12 Rue du Rhône, Geneva<br />
               concierge@aurum-watches.com<br />
               +41 22 000 00 00
             </address>
           </div>
-
-          <div class="footer-col">
-            <p class="footer-label">Explore</p>
-            <nav aria-label="Footer navigation">
-              <ul>
-                <li><a href="html/collection.html">Collection</a></li>
-                <li><a href="html/heritage.html">Heritage</a></li>
-                <li><a href="html/contact.html">Contact</a></li>
-              </ul>
-            </nav>
-          </div>
         </div>
+
         <div class="footer-bottom">
-          <p>&copy; 2026 Aurum. All rights reserved.</p>
-          <ul class="socials">
-            <li>
-              <a href="#" aria-label="Instagram">
-                <img
-                  src="./assets/icons/instagram.svg"
-                  alt=""
-                  width="20"
-                  height="20"
-                />
-              </a>
-            </li>
-            <li>
-              <a href="#" aria-label="LinkedIn">
-                <img
-                  src="./assets/icons/linkedin.svg"
-                  alt=""
-                  width="20"
-                  height="20"
-                />
-              </a>
-            </li>
-          </ul>
+          <p class="footer-wordmark" aria-hidden="true" data-reveal>AURUM</p>
+          <p class="footer-legal">&copy; 2026 Aurum. All rights reserved.</p>
         </div>
       </div>
     </footer>

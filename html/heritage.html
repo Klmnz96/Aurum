@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Heritage - Aurum</title>
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
     <link rel="stylesheet" href="../css/fonts.css" />
     <link rel="stylesheet" href="../css/standard.css" />
     <link rel="stylesheet" href="../style.css" />
@@ -16,7 +19,7 @@
           <img src="../assets/icons/logo.svg" alt="" width="28" height="28" />
           <span>AURUM</span>
         </a>
-        <nav class="site-nav" aria-label="Main navigation">
+        <nav class="site-nav" id="site-nav" aria-label="Main navigation">
           <ul>
             <li><a href="collection.html">Collection</a></li>
             <li><a href="heritage.html" aria-current="page">Heritage</a></li>
@@ -26,8 +29,8 @@
 
         <div class="header-actions">
           <!--Warenkorb-->
-          <a href="cart.html" class="cart-link" aria-label="Cart">
-            <img src="../assets/icons/cart.svg" alt="" width="22" height="22" />
+          <a href="cart.html" class="cart-link">
+            Cart
             <span class="cart-count" id="cart-count">0</span>
           </a>
           <button
@@ -46,120 +49,202 @@
       </div>
     </header>
 
-    <main id="main" class="section">
-      <div class="container">
-        <header class="page-head">
-          <h1>Craft over shortcuts.</h1>
-        </header>
-
-        <div class="studio-text">
-          <p>
-            Aurum was founded in Geneva in 1998 on a single premise: A watch
-            should earn every detail it carries. We design and assemble a small
-            collection of timepieces for people who notice the difference
-            between decoration and craft.
-          </p>
-          <p>
-            Every case, dial, and movement passes through the hands of a small
-            team before it leaves the workshop. We build in limited numbers not
-            because we can't scale, but because we'd rather stand behind fewer
-            watches than apologize for more.
-          </p>
-          <p>
-            That discipline shows up in small ways a bezel action tuned by hand,
-            a dial finish checked under three different lights before approval.
-            None of it is visible in a product photo. All of it is felt on the
-            wrist.
-          </p>
+    <main id="main">
+      <!--Seitenkopf: Text auf dem Panel, Bild liegt auf der Kante-->
+      <section class="page-intro">
+        <div class="container page-intro-grid">
+          <div class="page-intro-text">
+            <h1 class="lines">
+              <span class="line"
+                ><span data-line style="--i: 0">Craft over shortcuts.</span></span
+              >
+            <span class="line page-intro-soft"
+              ><span data-line style="--i: 1">Geneva, since 1998.</span></span
+            >
+            </h1>
+            <p data-load style="--delay: 420ms">
+              Aurum was founded on a single premise: a watch should earn every detail
+              it carries. We still build that way, in small numbers, by hand.
+            </p>
+          </div>
+          <figure class="page-intro-media" data-shutter>
+            <img
+              src="../assets/images/patek-watchmaking.webp"
+              style="object-position: 50% 80%"
+              alt="A watchmaker setting a balance wheel with tweezers"
+              width="1920"
+              height="2033"
+              fetchpriority="high"
+            />
+          </figure>
         </div>
+      </section>
 
-        <figure class="studio-image">
-          <img
-            src="../assets/images/rolex-watchmaking.jpg"
-            alt="Watchmaker assembling a movement"
-          />
-        </figure>
+      <!--Geschichte: Textspalte + großes Werkstattfoto-->
+      <section class="section">
+        <div class="container story-grid">
+          <div class="story-text">
+            <h2 data-reveal>Fewer watches, made properly</h2>
+            <p data-reveal style="--i: 1">
+              We design and assemble a small collection of timepieces for people
+              who notice the difference between decoration and craft.
+            </p>
+            <p data-reveal style="--i: 2">
+              Every case, dial and movement passes through the hands of a small
+              team before it leaves the workshop. We build in limited numbers
+              not because we can't scale, but because we'd rather stand behind
+              fewer watches than apologize for more.
+            </p>
+            <p data-reveal style="--i: 3">
+              That discipline shows up in small ways: a bezel action tuned by
+              hand, a dial finish checked under three different lights before
+              approval. None of it is visible in a product photo. All of it is
+              felt on the wrist.
+            </p>
+          </div>
+          <figure class="story-media" data-reveal style="--i: 1">
+            <img
+              src="../assets/images/richard-mille-watchmaking.jpg"
+              alt="Tweezers lifting a hand above an open skeleton movement"
+              width="1536"
+              height="1024"
+              loading="lazy"
+            />
+            <figcaption>Fitting the hands on a skeleton movement.</figcaption>
+          </figure>
+        </div>
+      </section>
 
-        <section class="service-section">
-          <h2>Values</h2>
-          <ul class="studio-services">
-            <li>Craft</li>
-            <li>Patience</li>
-            <li>Restraint</li>
-            <li>Precision</li>
+      <!--Das Haus in vier Zahlen-->
+      <section class="section section-facts">
+        <div class="container facts-grid">
+          <div class="facts-intro">
+            <h2 data-reveal>The house in four numbers</h2>
+            <figure class="facts-media" data-reveal style="--i: 1">
+              <img
+                src="../assets/images/cartier-watchmaking.jpg"
+                alt="An opened case back on the workbench, movement exposed"
+                width="387"
+                height="516"
+                loading="lazy"
+              />
+            </figure>
+          </div>
+          <dl class="facts-list">
+            <div data-reveal style="--i: 1">
+              <dt>1998</dt>
+              <dd>The year the workshop opened at 12 Rue du Rhône.</dd>
+            </div>
+            <div data-reveal style="--i: 2">
+              <dt>5</dt>
+              <dd>References in the collection. Never more at one time.</dd>
+            </div>
+            <div data-reveal style="--i: 3">
+              <dt>2 sec</dt>
+              <dd>The most a movement may drift in a day before it is cased.</dd>
+            </div>
+            <div data-reveal style="--i: 4">
+              <dt>1</dt>
+              <dd>Watchmaker per Calibre, from the first part to the final seal.</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <!--Werte: Goldfläche-->
+      <section class="section-values">
+        <div class="values-panel">
+          <h2 data-reveal>What we hold to</h2>
+          <ul class="values-list">
+            <li data-reveal style="--i: 1">
+              <h3>Craft</h3>
+              <p>
+                Bevels, Geneva stripes and black polish are done by hand, also
+                on the parts no owner will ever see.
+              </p>
+            </li>
+            <li data-reveal style="--i: 2">
+              <h3>Patience</h3>
+              <p>
+                A new reference takes about four years from the first sketch to
+                the first delivery.
+              </p>
+            </li>
+            <li data-reveal style="--i: 3">
+              <h3>Restraint</h3>
+              <p>
+                No complication goes on a dial unless the wearer would miss it.
+              </p>
+            </li>
+            <li data-reveal style="--i: 4">
+              <h3>Precision</h3>
+              <p>
+                Every movement is tested in six positions and at two
+                temperatures before it is cased.
+              </p>
+            </li>
           </ul>
-        </section>
-      </div>
+          <a href="collection.html" class="button button-dark" data-reveal
+            >See the collection</a
+          >
+        </div>
+      </section>
     </main>
 
+    <!--Footer: der Name läuft über das letzte Foto-->
     <footer class="site-footer">
-      <div class="container">
-        <!--Newsletter-->
-        <div class="footer-newsletter">
-          <h3>Be the first to know about new pieces.</h3>
-          <form class="newsletter-form">
-            <input type="email" placeholder="Your email" required />
-            <button type="submit" class="button">Subscribe</button>
-          </form>
-        </div>
-
+      <figure class="footer-media">
+        <img
+          src="../assets/images/rolex-watchmaking.jpg"
+          alt=""
+          width="2400"
+          height="1200"
+          loading="lazy"
+        />
+      </figure>
+      <div class="container footer-inner">
         <div class="footer-top">
-          <div class="footer-col">
-            <a href="../index.html" class="logo">
-              <img
-                src="../assets/icons/logo.svg"
-                alt=""
-                width="28"
-                height="28"
+          <nav class="footer-col" aria-label="Footer navigation" data-reveal style="--i: 0">
+            <h2 class="footer-label">Explore</h2>
+            <ul>
+              <li><a href="collection.html">Collection</a></li>
+              <li><a href="heritage.html">Heritage</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="#">Instagram</a></li>
+              <li><a href="#">LinkedIn</a></li>
+            </ul>
+          </nav>
+
+          <!--Newsletter-->
+          <div class="footer-col footer-newsletter" data-reveal style="--i: 1">
+            <h2 class="footer-label">Hear about new pieces first</h2>
+            <form class="newsletter-form">
+              <label for="newsletter-email" class="visually-hidden"
+                >Email address</label
+              >
+              <input
+                type="email"
+                id="newsletter-email"
+                placeholder="Your email"
+                required
               />
-              <span>AURUM</span>
-            </a>
-            <p class="footer-tagline">Swiss inspired watchmaking, est. 1998.</p>
+              <button type="submit" class="button">Subscribe</button>
+            </form>
           </div>
-          <div class="footer-col">
-            <p class="footer-label">Boutique</p>
+
+          <div class="footer-col" data-reveal style="--i: 2">
+            <h2 class="footer-label">Boutique</h2>
             <address>
               12 Rue du Rhône, Geneva<br />
               concierge@aurum-watches.com<br />
               +41 22 000 00 00
             </address>
           </div>
-
-          <div class="footer-col">
-            <p class="footer-label">Explore</p>
-            <nav aria-label="Footer navigation">
-              <ul>
-                <li><a href="collection.html">Collection</a></li>
-                <li><a href="heritage.html">Heritage</a></li>
-                <li><a href="contact.html">Contact</a></li>
-              </ul>
-            </nav>
-          </div>
         </div>
+
         <div class="footer-bottom">
-          <p>&copy; 2026 Aurum. All rights reserved.</p>
-          <ul class="socials">
-            <li>
-              <a href="#" aria-label="Instagram">
-                <img
-                  src="../assets/icons/instagram.svg"
-                  alt=""
-                  width="20"
-                  height="20"
-                />
-              </a>
-            </li>
-            <li>
-              <a href="#" aria-label="LinkedIn">
-                <img
-                  src="../assets/icons/linkedin.svg"
-                  alt=""
-                  width="20"
-                  height="20"
-                />
-              </a>
-            </li>
-          </ul>
+          <p class="footer-wordmark" aria-hidden="true" data-reveal>AURUM</p>
+          <p class="footer-legal">&copy; 2026 Aurum. All rights reserved.</p>
         </div>
       </div>
     </footer>

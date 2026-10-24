@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact - Aurum</title>
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
     <link rel="stylesheet" href="../css/fonts.css" />
     <link rel="stylesheet" href="../css/standard.css" />
     <link rel="stylesheet" href="../style.css" />
@@ -16,7 +19,7 @@
           <img src="../assets/icons/logo.svg" alt="" width="28" height="28" />
           <span>AURUM</span>
         </a>
-        <nav class="site-nav" aria-label="Main navigation">
+        <nav class="site-nav" id="site-nav" aria-label="Main navigation">
           <ul>
             <li><a href="collection.html">Collection</a></li>
             <li><a href="heritage.html">Heritage</a></li>
@@ -26,8 +29,8 @@
 
         <div class="header-actions">
           <!--Warenkorb-->
-          <a href="cart.html" class="cart-link" aria-label="Cart">
-            <img src="../assets/icons/cart.svg" alt="" width="22" height="22" />
+          <a href="cart.html" class="cart-link">
+            Cart
             <span class="cart-count" id="cart-count">0</span>
           </a>
           <button
@@ -46,121 +49,189 @@
       </div>
     </header>
 
-    <main id="main" class="section">
-      <div class="container">
-        <header class="page-head">
-          <h1>Private Client Services</h1>
-        </header>
+    <main id="main">
+      <!--Seitenkopf: Text auf dem Panel, Bild liegt auf der Kante-->
+      <section class="page-intro">
+        <div class="container page-intro-grid">
+          <div class="page-intro-text">
+            <h1 class="lines">
+              <span class="line"
+                ><span data-line style="--i: 0">Private client services.</span></span
+              >
+            <span class="line page-intro-soft"
+              ><span data-line style="--i: 1">By appointment in Geneva.</span></span
+            >
+            </h1>
+            <p data-load style="--delay: 420ms">
+              Our concierge arranges private viewings, servicing and engraving. Write
+              or call, and a watchmaker will be at the table when you visit.
+            </p>
+          </div>
+          <figure class="page-intro-media" data-shutter>
+            <img
+              src="../assets/images/patek-wrist.jpg"
+              alt="The Calibre worn with a dark suit"
+              width="1690"
+              height="1280"
+              fetchpriority="high"
+            />
+          </figure>
+        </div>
+      </section>
 
-        <div class="contact-layout">
-          <address class="contact-details">
-            <p>
+      <!--Boutique-Infos + Anfrageformular-->
+      <section class="section">
+        <div class="container contact-layout">
+          <div class="contact-details">
+            <h2 data-reveal>The boutique</h2>
+            <figure class="contact-media" data-reveal style="--i: 1">
               <img
-                src="../assets/icons/pin.svg"
-                alt=""
-                width="20"
-                height="20"
-              />12 Rue du Rhône, Geneva
+                src="../assets/images/cartier-wrist.jpg"
+                alt="The Regent worn with a dark suit"
+                width="402"
+                height="497"
+                loading="lazy"
+              />
+            </figure>
+            <address data-reveal style="--i: 1">
+              12 Rue du Rhône<br />
+              1204 Geneva, Switzerland<br />
+              <a href="mailto:concierge@aurum-watches.com"
+                >concierge@aurum-watches.com</a
+              ><br />
+              <a href="tel:+41220000000">+41 22 000 00 00</a>
+            </address>
+            <dl class="opening-hours" data-reveal style="--i: 2">
+              <div>
+                <dt>Monday to Friday</dt>
+                <dd>10:00 to 18:30</dd>
+              </div>
+              <div>
+                <dt>Saturday</dt>
+                <dd>10:00 to 17:00</dd>
+              </div>
+              <div>
+                <dt>Sunday</dt>
+                <dd>Closed</dd>
+              </div>
+            </dl>
+            <p class="boutique-status" id="boutique-status" data-reveal style="--i: 3">
+              Open Monday to Saturday.
             </p>
-            <p>
-              <img
-                src="../assets/icons/mail.svg"
-                alt=""
-                width="20"
-                height="20"
-              />concierge@aurum-watches.com
-            </p>
-            <p>
-              <img
-                src="../assets/icons/phone.svg"
-                alt=""
-                width="20"
-                height="20"
-              />+41 22 000 00 00
-            </p>
-          </address>
+          </div>
 
           <form class="contact-form">
-            <p class="form-note">Demo form doesn't send yet.</p>
-            <label>Name<input type="text" name="name" required /></label>
-            <label>Email<input type="email" name="email" required /></label>
-            <label
-              >Message<textarea name="message" rows="5" required></textarea>
+            <h2>Request a viewing</h2>
+            <p class="form-note">This demo form doesn't send yet.</p>
+            <label data-reveal style="--i: 2">Name<input type="text" name="name" autocomplete="name" required /></label>
+            <label data-reveal style="--i: 3">Email<input type="email" name="email" autocomplete="email" required /></label>
+            <label data-reveal style="--i: 4"
+              >Reference
+              <select name="reference">
+                <option>Not sure yet</option>
+                <option>Meridian</option>
+                <option>Regent</option>
+                <option>Calibre</option>
+                <option>Apex</option>
+                <option>Velocity</option>
+              </select>
             </label>
-            <button type="submit" class="button">Send</button>
+            <label data-reveal style="--i: 5">Preferred date<input type="date" name="date" /></label>
+            <label data-reveal style="--i: 6"
+              >Message<textarea name="message" rows="4"></textarea>
+            </label>
+            <button type="submit" class="button">Send request</button>
           </form>
         </div>
-      </div>
+      </section>
+
+      <!--Was eine private Besichtigung bietet-->
+      <section class="section section-viewing">
+        <div class="container viewing-grid">
+          <figure class="viewing-media" data-reveal>
+            <img
+              src="../assets/images/richard-mille-wrist.jpg"
+              alt="The Velocity in rose gold on the wrist"
+              width="3000"
+              height="2000"
+              loading="lazy"
+            />
+          </figure>
+          <div class="viewing-text">
+            <h2 data-reveal style="--i: 1">What a viewing includes</h2>
+            <ul class="viewing-list">
+              <li data-reveal style="--i: 2">
+                <h3>An hour at the table</h3>
+                <p>Every reference in your size, with time to wear each one.</p>
+              </li>
+              <li data-reveal style="--i: 3">
+                <h3>A watchmaker present</h3>
+                <p>Questions about movements, servicing or engraving answered on the spot.</p>
+              </li>
+              <li data-reveal style="--i: 4">
+                <h3>Sizing while you wait</h3>
+                <p>Bracelets and straps fitted before you leave the boutique.</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
     </main>
 
+    <!--Footer: der Name läuft über das letzte Foto-->
     <footer class="site-footer">
-      <div class="container">
-        <!--Newsletter-->
-        <div class="footer-newsletter">
-          <h3>Be the first to know about new pieces.</h3>
-          <form class="newsletter-form">
-            <input type="email" placeholder="Your email" required />
-            <button type="submit" class="button">Subscribe</button>
-          </form>
-        </div>
-
+      <figure class="footer-media">
+        <img
+          src="../assets/images/rolex-watchmaking.jpg"
+          alt=""
+          width="2400"
+          height="1200"
+          loading="lazy"
+        />
+      </figure>
+      <div class="container footer-inner">
         <div class="footer-top">
-          <div class="footer-col">
-            <a href="../index.html" class="logo">
-              <img
-                src="../assets/icons/logo.svg"
-                alt=""
-                width="28"
-                height="28"
+          <nav class="footer-col" aria-label="Footer navigation" data-reveal style="--i: 0">
+            <h2 class="footer-label">Explore</h2>
+            <ul>
+              <li><a href="collection.html">Collection</a></li>
+              <li><a href="heritage.html">Heritage</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="#">Instagram</a></li>
+              <li><a href="#">LinkedIn</a></li>
+            </ul>
+          </nav>
+
+          <!--Newsletter-->
+          <div class="footer-col footer-newsletter" data-reveal style="--i: 1">
+            <h2 class="footer-label">Hear about new pieces first</h2>
+            <form class="newsletter-form">
+              <label for="newsletter-email" class="visually-hidden"
+                >Email address</label
+              >
+              <input
+                type="email"
+                id="newsletter-email"
+                placeholder="Your email"
+                required
               />
-              <span>AURUM</span>
-            </a>
-            <p class="footer-tagline">Swiss inspired watchmaking, est. 1998.</p>
+              <button type="submit" class="button">Subscribe</button>
+            </form>
           </div>
-          <div class="footer-col">
-            <p class="footer-label">Boutique</p>
+
+          <div class="footer-col" data-reveal style="--i: 2">
+            <h2 class="footer-label">Boutique</h2>
             <address>
               12 Rue du Rhône, Geneva<br />
               concierge@aurum-watches.com<br />
               +41 22 000 00 00
             </address>
           </div>
-
-          <div class="footer-col">
-            <p class="footer-label">Explore</p>
-            <nav aria-label="Footer navigation">
-              <ul>
-                <li><a href="collection.html">Collection</a></li>
-                <li><a href="heritage.html">Heritage</a></li>
-                <li><a href="contact.html">Contact</a></li>
-              </ul>
-            </nav>
-          </div>
         </div>
+
         <div class="footer-bottom">
-          <p>&copy; 2026 Aurum. All rights reserved.</p>
-          <ul class="socials">
-            <li>
-              <a href="#" aria-label="Instagram">
-                <img
-                  src="../assets/icons/instagram.svg"
-                  alt=""
-                  width="20"
-                  height="20"
-                />
-              </a>
-            </li>
-            <li>
-              <a href="#" aria-label="LinkedIn">
-                <img
-                  src="../assets/icons/linkedin.svg"
-                  alt=""
-                  width="20"
-                  height="20"
-                />
-              </a>
-            </li>
-          </ul>
+          <p class="footer-wordmark" aria-hidden="true" data-reveal>AURUM</p>
+          <p class="footer-legal">&copy; 2026 Aurum. All rights reserved.</p>
         </div>
       </div>
     </footer>
