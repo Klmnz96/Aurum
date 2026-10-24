@@ -34,3 +34,13 @@ function buildReferenceDetail(product) {
     <a href="${getPagePath(`product.html?id=${product.id}`)}" class="link-arrow">View the ${product.name}</a>
     `;
 }
+
+function buildProductNotFound() {
+  return `
+  <div class="product-not-found">
+  <h1>This piece doesn't exist</h1>
+  <p>The link may be outdated. All five references are in the collection.</p>
+  <a href="collection.html" class="button">View the collection</a>
+  </div>
+  `;
+}

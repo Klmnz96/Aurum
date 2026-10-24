@@ -44,7 +44,9 @@ function initHeader() {
 }
 
 function initScrollReveal() {
-  const revealElements = document.querySelectorAll("[data-reveal], [data-disc]");
+  const revealElements = document.querySelectorAll(
+    "[data-reveal], [data-disc]",
+  );
   if (!revealElements.length) return;
 
   const prefersReducedMotion = window.matchMedia(
@@ -213,6 +215,25 @@ function initBoutiqueStatus() {
   setInterval(updateBoutiqueStatus, 30000);
 }
 
+function initProductDetail() {
+  const productContainer = document.querySelector("#product");
+  if (!productContainer) return;
+
+  const productId = getProductIdFromUrl();
+
+  getProducts().then((products) => {
+    const selectedProduct = products.find(
+      (product) => product.id === productId,
+    );
+
+    if (!selectedProduct) {
+      productContainer.innerHTML = buildProductNotFound();
+      return;
+    }
+    console.log(selectedProduct);
+  });
+}
+
 function init() {
   initHeader();
   initScrollReveal();
@@ -220,6 +241,7 @@ function init() {
   initCollectionGrid();
   initShowcase();
   initBoutiqueStatus();
+  initProductDetail();
 }
 
 init();

@@ -1247,6 +1247,11 @@ img[src*="icons/"] {
   color: var(--muted);
 }
 
+.product-not-found {
+  grid-column: 1 / -1;
+  max-width: 36rem;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .cart-item-remove:hover {
     color: var(--ink);
@@ -1366,7 +1371,6 @@ img[src*="icons/"] {
     grid-column: 6 / -1;
     padding: var(--space-xl);
   }
-
 
   .cart-layout {
     grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -1498,8 +1502,14 @@ img[src*="icons/"] {
     top: calc(var(--seam) - 120vw * 1.2406 * 0.34);
     /* Armband unterhalb der Kante sanft ausblenden, damit der Text frei steht */
     /* taste-skill-ignore: Transparenzmaske, keine sichtbare Verlaufsfläche */
-    -webkit-mask-image: linear-gradient(#000 0 calc(120vw * 1.2406 * 0.34 + 4svh), transparent calc(120vw * 1.2406 * 0.34 + 14svh)); /* taste-skill-ignore */
-    mask-image: linear-gradient(#000 0 calc(120vw * 1.2406 * 0.34 + 4svh), transparent calc(120vw * 1.2406 * 0.34 + 14svh)); /* taste-skill-ignore */
+    -webkit-mask-image: linear-gradient(
+      #000 0 calc(120vw * 1.2406 * 0.34 + 4svh),
+      transparent calc(120vw * 1.2406 * 0.34 + 14svh)
+    ); /* taste-skill-ignore */
+    mask-image: linear-gradient(
+      #000 0 calc(120vw * 1.2406 * 0.34 + 4svh),
+      transparent calc(120vw * 1.2406 * 0.34 + 14svh)
+    ); /* taste-skill-ignore */
   }
   .hero-copy {
     grid-template-rows: calc(var(--seam) + 16svh) auto;

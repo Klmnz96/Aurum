@@ -48,3 +48,8 @@ function timeToMinutes(timeText) {
   const [hour, minute] = timeText.split(":");
   return Number(hour) * 60 + Number(minute);
 }
+
+function getProductIdFromUrl() {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get("id");
+}
