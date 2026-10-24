@@ -236,6 +236,20 @@ function initProductDetail() {
   });
 
   productContainer.addEventListener("click", handleThumbClick);
+  productContainer.addEventListener("click", handleAddToCartClick);
+}
+
+function handleAddToCartClick(event) {
+  const addButton = event.target.closest(".product-add");
+  if (!addButton) return;
+
+  addToCart(addButton.dataset.id);
+  updateCartCount();
+
+  addButton.textContent = "Added to selection";
+  setTimeout(() => {
+    addButton.textContent = "Add to selection";
+  }, 1500);
 }
 
 function getProductThumbsHtml(images) {
@@ -263,6 +277,7 @@ function handleThumbClick(event) {
 }
 
 function init() {
+  updateCartCount();
   initHeader();
   initScrollReveal();
   initFeaturedGrid();
