@@ -1174,9 +1174,7 @@ img[src*="icons/"] {
 .cart-item {
   display: grid;
   grid-template-columns: 6rem 1fr auto;
-  grid-template-areas:
-    "media info price"
-    "media quantity quantity";
+  grid-template-areas: "media info price";
   gap: var(--space-xs) var(--space-md);
   align-items: center;
   padding: var(--space-sm);
@@ -1212,29 +1210,6 @@ img[src*="icons/"] {
   text-underline-offset: 0.3em;
   color: var(--muted);
   transition: color var(--t-hover) ease;
-}
-
-.cart-item-quantity {
-  grid-area: quantity;
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-}
-
-.quantity-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  background: var(--bg);
-  transition:
-    background-color var(--t-hover) ease,
-    transform var(--t-press) var(--ease-out);
-}
-
-.quantity-btn:active {
-  transform: scale(0.94);
 }
 
 .cart-item-price {
@@ -1300,9 +1275,6 @@ body.nav-open {
   .cart-item-remove:hover {
     color: var(--ink);
   }
-  .quantity-btn:hover {
-    background: #000;
-  }
 }
 
 @media (min-width: 48rem) {
@@ -1316,8 +1288,7 @@ body.nav-open {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
   .cart-item {
-    grid-template-columns: 7rem 1fr auto auto;
-    grid-template-areas: "media info quantity price";
+    grid-template-columns: 7rem 1fr auto;
     gap: var(--space-lg);
   }
 }
@@ -1358,6 +1329,9 @@ body.nav-open {
     grid-column: 7 / -1;
     aspect-ratio: 1;
     margin: 0 calc(-1 * var(--gutter)) 0 0;
+  }
+  .page-intro-compact .page-intro-media {
+    aspect-ratio: 16 / 9;
   }
 
   .story-grid {
@@ -1411,7 +1385,8 @@ body.nav-open {
   .contact-details {
     grid-column: 1 / span 4;
   }
-  .contact-form {
+  .contact-form,
+  .viewing-confirmation {
     grid-column: 6 / -1;
     padding: var(--space-xl);
   }
@@ -1452,6 +1427,119 @@ body.nav-open {
   .cart-item-name a:hover {
     text-decoration-color: currentColor;
   }
+}
+
+/* ---- Kollektion: kompakter Kopf + Abschluss-Band ---- */
+.page-intro-compact .page-intro-media {
+  aspect-ratio: 16 / 9;
+}
+
+.page-intro-compact + .section-collection {
+  padding-top: var(--space-xl);
+}
+
+.closing-band {
+  padding-inline: 12px;
+  margin-bottom: var(--section-gap);
+}
+
+.closing-band-inner {
+  display: grid;
+  gap: var(--space-md);
+  justify-items: start;
+  padding-block: var(--space-2xl);
+  background: var(--surface);
+}
+
+.closing-band-inner .boutique-status {
+  max-width: 32ch;
+}
+
+@media (min-width: 48rem) {
+  .closing-band-inner {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+  }
+  .closing-band-inner .button {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+}
+
+/* ---- Anfrage: Auswahl im Formular und Bestätigung ---- */
+.contact-form {
+  scroll-margin-top: 100px;
+}
+
+.selection-strip {
+  display: grid;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background: var(--bg);
+}
+
+.selection-strip[hidden],
+#reference-field[hidden] {
+  display: none;
+}
+
+.selection-strip h3 {
+  font-family: var(--font-body);
+  font-size: var(--step-body);
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.selection-pieces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm) var(--space-md);
+}
+
+.selection-piece {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-display);
+  font-size: var(--step-lead);
+}
+
+.selection-piece-media {
+  width: 3.5rem;
+  margin: 0;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+.viewing-confirmation {
+  display: grid;
+  gap: var(--space-md);
+  justify-items: start;
+  align-content: start;
+  padding: var(--space-lg) var(--space-md);
+  background: var(--surface);
+  scroll-margin-top: 100px;
+}
+
+.viewing-confirmation:focus {
+  outline: none;
+}
+
+.viewing-confirmation-lead {
+  font-family: var(--font-display);
+  font-size: var(--step-title);
+  line-height: var(--leading-tight);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .viewing-confirmation {
+    animation: rise-in 600ms var(--ease-expo) both;
+  }
+}
+
+/* "All" ist ein kurzes Wort: trotzdem 44px breite Tippfläche */
+.filter-btn {
+  min-width: 2.75rem;
 }
 
 /* ============================================
