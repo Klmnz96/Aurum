@@ -1,4 +1,6 @@
 let allProducts = [];
+let lastRemovedEntry = null;
+let removalNoticeTimer;
 
 // Öffnungszeiten der Boutique (Genfer Ortszeit), Sonntag geschlossen
 const boutiqueHours = {
@@ -273,15 +275,26 @@ function initProductDetail() {
 
     if (!selectedProduct) {
       productContainer.innerHTML = buildProductNotFound();
+      document.title = "Piece not found - Aurum";
       return;
     }
     productContainer.innerHTML = buildProductDetail(selectedProduct);
     document.title = `${selectedProduct.name} - Aurum`;
     setActiveThumb(productContainer.querySelector(".product-thumb"));
+    setAddButtonState(
+      productContainer.querySelector(".product-add"),
+      isInCart(selectedProduct.id),
+    );
   });
 
   productContainer.addEventListener("click", handleThumbClick);
   productContainer.addEventListener("click", handleAddToCartClick);
+}
+
+// Der Button zeigt dauerhaft, ob die Uhr schon in der Auswahl ist (auch nach dem Neuladen)
+function setAddButtonState(addButton, isSelected) {
+  addButton.textContent = isSelected ? "In your selection" : "Add to selection";
+  addButton.setAttribute("aria-pressed", isSelected);
 }
 
 function handleAddToCartClick(event) {
@@ -290,17 +303,20 @@ function handleAddToCartClick(event) {
 
   const wasAdded = addToCart(addButton.dataset.id);
   updateCartCount();
+  setAddButtonState(addButton, true);
 
-  addButton.textContent = wasAdded
-    ? "Added to selection"
-    : "Already in your selection";
-  setTimeout(() => {
-    addButton.textContent = "Add to selection";
-  }, 1500);
+  const productName = document.querySelector(".product-name").textContent;
+  document.querySelector("#product-status").textContent = wasAdded
+    ? `${productName} added to your selection.`
+    : `${productName} is already in your selection.`;
 }
 
 function getProductThumbsHtml(images) {
-  return images.map(buildProductThumb).join("");
+  return images
+    .map((imagePath, imageIndex) =>
+      buildProductThumb(imagePath, `View ${imageIndex + 1} of ${images.length}`),
+    )
+    .join("");
 }
 
 function getDescriptionHtml(paragraphs) {
@@ -320,6 +336,7 @@ function handleThumbClick(event) {
 
   const mainImage = document.querySelector("#product-main-image");
   mainImage.src = clickedThumb.dataset.image;
+  mainImage.alt = `${mainImage.dataset.productName}, ${clickedThumb.getAttribute("aria-label").toLowerCase()}`;
   setActiveThumb(clickedThumb);
 }
 
@@ -332,6 +349,7 @@ function renderCartPage(products) {
   cartList.innerHTML = cartEntries.map(buildCartItem).join("");
   cartEmpty.hidden = cartEntries.length > 0;
   checkoutButton.disabled = cartEntries.length === 0;
+  document.querySelector(".cart-summary").hidden = cartEntries.length === 0;
   document.querySelector("#cart-piece-count").textContent = cartEntries.length;
   document.querySelector("#cart-total").textContent = formatPrice(
     getCartTotal(cartEntries),
@@ -340,12 +358,54 @@ function renderCartPage(products) {
   updateCartCount();
 }
 
+function showRemovalNotice(productName) {
+  const cartStatus = document.querySelector("#cart-status");
+  cartStatus.innerHTML = buildRemovalNotice(productName);
+
+  // nach ein paar Sekunden ist das Entfernen endgültig
+  clearTimeout(removalNoticeTimer);
+  removalNoticeTimer = setTimeout(() => {
+    cartStatus.textContent = "";
+    lastRemovedEntry = null;
+  }, 6000);
+}
+
+// Fokus bleibt in der Liste: nächster "Remove"-Button, sonst die Überschrift
+function focusAfterRemoval(removedIndex) {
+  const removeButtons = document.querySelectorAll(".cart-item-remove");
+  const nextButton =
+    removeButtons[removedIndex] || removeButtons[removeButtons.length - 1];
+  (nextButton || document.querySelector("#selection-title")).focus();
+}
+
 function handleCartClick(event) {
   const removeButton = event.target.closest(".cart-item-remove");
   if (!removeButton) return;
 
-  removeFromCart(removeButton.dataset.id);
+  const removedProduct = allProducts.find(
+    (product) => product.id === removeButton.dataset.id,
+  );
+  lastRemovedEntry = removeFromCart(removeButton.dataset.id);
+  if (!lastRemovedEntry) return;
+
   renderCartPage(allProducts);
+  showRemovalNotice(removedProduct.name);
+  focusAfterRemoval(lastRemovedEntry.index);
+}
+
+function handleUndoClick(event) {
+  if (!event.target.closest(".cart-undo") || !lastRemovedEntry) return;
+
+  restoreToCart(lastRemovedEntry);
+  const restoredId = lastRemovedEntry.item.id;
+  lastRemovedEntry = null;
+  clearTimeout(removalNoticeTimer);
+
+  renderCartPage(allProducts);
+  document.querySelector("#cart-status").textContent = "Restored.";
+  document
+    .querySelector(`.cart-item-remove[data-id="${restoredId}"]`)
+    .focus();
 }
 
 function initCartPage() {
@@ -358,6 +418,9 @@ function initCartPage() {
   });
 
   cartList.addEventListener("click", handleCartClick);
+  document
+    .querySelector("#cart-status")
+    .addEventListener("click", handleUndoClick);
   document
     .querySelectorAll(".book-viewing-btn")
     .forEach((bookButton) =>
@@ -375,6 +438,7 @@ function showFormMessage(form, messageText) {
 
 function handleNewsletterSubmit(event) {
   event.preventDefault();
+  if (!validateForm(event.currentTarget)) return;
   showFormMessage(
     event.currentTarget,
     "Thank you. You'll hear from us when a new piece is ready.",
@@ -400,6 +464,7 @@ function getRequestedPiecesText(contactForm) {
 function handleContactSubmit(event) {
   event.preventDefault();
   const contactForm = event.currentTarget;
+  if (!validateForm(contactForm)) return;
   const dateValue = contactForm.querySelector("#viewing-date").value;
 
   const confirmationDetails = {
@@ -414,7 +479,57 @@ function handleContactSubmit(event) {
 
 // Kein echter Checkout: die Auswahl geht als Besichtigungs-Anfrage an die Kontaktseite
 function handleBookViewingClick() {
-  window.location.href = getViewingUrl(getSelectedIds());
+  window.location.href = getViewingUrl(getSelectedIds(), true);
+}
+
+// Text unter dem Feld, im Ton der Seite statt in der Sprache des Browsers
+function getFieldErrorMessage(formField) {
+  const fieldValidity = formField.validity;
+  if (fieldValidity.valid) return "";
+  if (fieldValidity.customError) return formField.validationMessage;
+
+  const fieldMessages = {
+    name: "Please tell us your name.",
+    email: fieldValidity.valueMissing
+      ? "We'll need an email to confirm your time."
+      : "That email doesn't look complete, for example name@example.com.",
+    date: "Please choose a day from today onwards.",
+  };
+  return fieldMessages[formField.name || formField.type] || "Please check this field.";
+}
+
+function showFieldError(formField) {
+  const errorId = `${formField.name || formField.type}-${formField.form.className}-error`;
+  const errorMessage = getFieldErrorMessage(formField);
+  let fieldError = document.getElementById(errorId);
+  if (!fieldError && !errorMessage) return;
+
+  if (!fieldError) {
+    fieldError = document.createElement("p");
+    fieldError.className = "field-error";
+    fieldError.id = errorId;
+    (formField.closest("label") || formField.form).append(fieldError);
+    formField.setAttribute("aria-describedby", errorId);
+  }
+
+  fieldError.textContent = errorMessage;
+  formField.setAttribute("aria-invalid", errorMessage ? "true" : "false");
+}
+
+// Gibt true zurück, wenn alles passt; sonst Meldungen zeigen und zum ersten Fehler springen
+function validateForm(form) {
+  const formFields = [...form.querySelectorAll("input, select, textarea")];
+  formFields.forEach(showFieldError);
+
+  const firstInvalidField = formFields.find((formField) => !formField.validity.valid);
+  if (firstInvalidField) firstInvalidField.focus();
+  return !firstInvalidField;
+}
+
+// Sobald ein Fehler angezeigt wird, verschwindet er beim Korrigieren live
+function handleFieldInput(event) {
+  const formField = event.target;
+  if (formField.getAttribute("aria-invalid") === "true") showFieldError(formField);
 }
 
 function handleViewingDateInput(event) {
@@ -434,6 +549,26 @@ function scrollToRequestForm() {
     .scrollIntoView({ block: "start", behavior: "instant" });
 }
 
+// Von der Auswahl-Seite: "Your selection" + Link zur Auswahl.
+// Von einer Produktseite: "Requested piece" + Link zurück zur Uhr.
+function setSelectionStripSource(selectedProducts) {
+  const selectionHeading = document.querySelector("#selection-heading");
+  const selectionLink = document.querySelector("#selection-link");
+
+  if (isRequestFromSelection()) {
+    selectionHeading.textContent = "Your selection";
+    selectionLink.textContent = "Change selection";
+    selectionLink.href = "cart.html";
+    return;
+  }
+
+  const firstProduct = selectedProducts[0];
+  selectionHeading.textContent =
+    selectedProducts.length === 1 ? "Requested piece" : "Requested pieces";
+  selectionLink.textContent = `Back to the ${firstProduct.name}`;
+  selectionLink.href = `product.html?id=${firstProduct.id}`;
+}
+
 // Kommt man mit einer Auswahl, zeigt das Formular die Uhren als Liste mit Bild
 // und blendet die Einzelauswahl aus
 function prefillViewingForm(referenceIds) {
@@ -451,6 +586,7 @@ function prefillViewingForm(referenceIds) {
     document.querySelector("#selection-pieces").innerHTML = selectedProducts
       .map(buildSelectionPiece)
       .join("");
+    setSelectionStripSource(selectedProducts);
     contactForm.dataset.pieceNames = selectedProducts
       .map((product) => product.name)
       .join(",");
@@ -473,12 +609,42 @@ function initForms() {
   const newsletterForm = document.querySelector(".newsletter-form");
   const contactForm = document.querySelector(".contact-form");
 
+  // Mit JS prüfen wir selbst (eigene Meldungen); ohne JS bleibt die Browser-Prüfung
   if (newsletterForm) {
+    newsletterForm.noValidate = true;
     newsletterForm.addEventListener("submit", handleNewsletterSubmit);
+    newsletterForm.addEventListener("input", handleFieldInput);
   }
   if (contactForm) {
+    contactForm.noValidate = true;
     contactForm.addEventListener("submit", handleContactSubmit);
+    contactForm.addEventListener("input", handleFieldInput);
   }
+}
+
+function initDriftReadout() {
+  const driftSeconds = document.querySelector("#drift-seconds");
+  if (!driftSeconds) return;
+
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+  let driftTimer;
+
+  const updateDriftReadout = () => {
+    driftSeconds.textContent = getAllowedDriftSoFar().toFixed(6);
+  };
+
+  // nur ticken, solange die Zahl im Bild ist (spart Rechenzeit)
+  const driftObserver = new IntersectionObserver(([entry]) => {
+    clearInterval(driftTimer);
+    if (!entry.isIntersecting) return;
+    updateDriftReadout();
+    driftTimer = setInterval(updateDriftReadout, prefersReducedMotion ? 1000 : 50);
+  });
+
+  updateDriftReadout();
+  driftObserver.observe(driftSeconds);
 }
 
 function init() {
@@ -494,6 +660,7 @@ function init() {
   initCartPage();
   initForms();
   initViewingForm();
+  initDriftReadout();
 }
 
 init();
