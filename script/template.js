@@ -76,7 +76,7 @@ function buildProductDetail(product) {
   <p class="product-category">${product.category}, ${product.caseSize}</p>
   <p class="product-summary">${product.summary}</p>
   <div class="product-actions">
-  <a class="button" href="${getPagePath(`contact.html?reference=${product.id}`)}">Request a viewing</a>
+  <a class="button" href="${getViewingUrl([product.id])}">Request a viewing</a>
   <button class="button button-quiet product-add" type="button" data-id="${product.id}">Add to selection</button>
   </div>
   <dl class="product-specs">
@@ -103,16 +103,7 @@ function buildCartItem(cartEntry) {
   <p class="cart-item-meta">${cartEntry.product.category}, ${cartEntry.product.caseSize}</p>
   <button class="cart-item-remove" type="button" data-id="${cartEntry.product.id}">Remove</button>
   </div>
-  <div class="cart-item-quantity">
-  <button class="quantity-btn" type="button" data-action="decrease" data-id="${cartEntry.product.id}" aria-label="One less">
-  <img src="${getAssetPath("assets/icons/minus.svg")}" alt="" width="16" height="16" />
-  </button>
-  <span>${cartEntry.quantity}</span>
-  <button class="quantity-btn" type="button" data-action="increase" data-id="${cartEntry.product.id}" aria-label="One more">
-  <img src="${getAssetPath("assets/icons/plus.svg")}" alt="" width="16" height="16" />
-  </button>
-  </div>
-  <p class="cart-item-price">${formatPrice(cartEntry.lineTotal)}</p>
+  <p class="cart-item-price">${formatPrice(cartEntry.product.price)}</p>
   </li>
   `;
 }
@@ -121,3 +112,26 @@ function buildFormMessage(messageText) {
   return `<p class="form-message" role="status">${messageText}</p>`;
 }
 
+
+function buildSelectionPiece(product) {
+  return `
+  <li class="selection-piece">
+  <figure class="selection-piece-media watch-frame" style="${getWatchFocusStyle(product.focus)}">
+  <img src="${getAssetPath(product.thumb)}" alt="" />
+  </figure>
+  <span>${product.name}</span>
+  </li>
+  `;
+}
+
+function buildViewingConfirmation(confirmationDetails) {
+  return `
+  <div class="viewing-confirmation" id="request" role="status" tabindex="-1">
+  <h2>Request noted</h2>
+  <p class="viewing-confirmation-lead">${confirmationDetails.piecesText}, ${confirmationDetails.dateText}.</p>
+  <p>The concierge will reply to ${confirmationDetails.emailAddress} within one working day to confirm a time. Nothing is booked until then.</p>
+  <p class="form-note">Demo: this request was not actually sent.</p>
+  <a href="collection.html" class="link-arrow">Back to the collection</a>
+  </div>
+  `;
+}
