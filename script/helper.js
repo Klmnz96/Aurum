@@ -84,3 +84,34 @@ function getTodayDateValue() {
 function isSunday(dateValue) {
   return new Date(`${dateValue}T12:00`).getDay() === 0;
 }
+
+// Link zur Besichtigungs-Anfrage, springt direkt zum Formular
+function getViewingUrl(productIds) {
+  const referenceQuery = productIds.length
+    ? `?reference=${productIds.join(",")}`
+    : "";
+  return getPagePath(`contact.html${referenceQuery}#request`);
+}
+
+// Produkte in der Reihenfolge der ids (unbekannte ids fallen weg)
+function getProductsByIds(products, productIds) {
+  return productIds
+    .map((productId) => products.find((product) => product.id === productId))
+    .filter((product) => product);
+}
+
+// "2026-11-03" -> "Tuesday 3 November"
+function formatViewingDate(dateValue) {
+  return new Intl.DateTimeFormat("en-GB", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+  }).format(new Date(`${dateValue}T12:00`));
+}
+
+// Nutzereingaben sicher in HTML einsetzen
+function escapeHtml(text) {
+  const textHolder = document.createElement("div");
+  textHolder.textContent = text;
+  return textHolder.innerHTML;
+}
