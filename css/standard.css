@@ -10,6 +10,7 @@
   --inverse: #151310; /* Text auf hellen/goldenen Flächen */
   --accent: #c9a35d; /* Gold – diesmal bewusst sichtbar, nicht nur homöopathisch */
   --accent-strong: #dcbb7c; /* Gold im Hover-Zustand */
+  --error: #e9a594; /* Fehlermeldungen in Formularen */
 
   /* ---- Schrift ---- */
   --font-display: "Cormorant Garamond", "Times New Roman", serif;
