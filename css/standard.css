@@ -191,6 +191,16 @@ ol {
   outline-offset: 3px;
 }
 
+::selection {
+  background: var(--accent);
+  color: var(--inverse);
+}
+
+input,
+textarea {
+  caret-color: var(--accent);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
