@@ -34,11 +34,27 @@ function updateCartCount() {
   cartCount.textContent = getCartCount(getCart());
 }
 
+// Gibt den entfernten Eintrag samt Position zurück (für "Undo")
 function removeFromCart(productId) {
-  const remainingItems = getCart().filter(
-    (cartItem) => cartItem.id !== productId,
+  const cartItems = getCart();
+  const removedIndex = cartItems.findIndex(
+    (cartItem) => cartItem.id === productId,
   );
-  saveCart(remainingItems);
+  if (removedIndex === -1) return null;
+
+  const [removedItem] = cartItems.splice(removedIndex, 1);
+  saveCart(cartItems);
+  return { item: removedItem, index: removedIndex };
+}
+
+function restoreToCart(removedEntry) {
+  const cartItems = getCart();
+  cartItems.splice(removedEntry.index, 0, removedEntry.item);
+  saveCart(cartItems);
+}
+
+function isInCart(productId) {
+  return getSelectedIds().includes(productId);
 }
 
 function getCartEntries(products) {
