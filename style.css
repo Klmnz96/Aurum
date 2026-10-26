@@ -1173,8 +1173,10 @@ img[src*="icons/"] {
 
 .cart-item {
   display: grid;
-  grid-template-columns: 6rem 1fr auto;
-  grid-template-areas: "media info price";
+  grid-template-columns: 6rem 1fr;
+  grid-template-areas:
+    "media info"
+    "media price";
   gap: var(--space-xs) var(--space-md);
   align-items: center;
   padding: var(--space-sm);
@@ -1234,18 +1236,24 @@ img[src*="icons/"] {
 }
 
 .cart-lines div,
-.cart-total {
+.cart-value {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  gap: var(--space-md);
+  gap: 0 var(--space-md);
 }
 
 .cart-lines dt {
   color: var(--muted);
 }
 
-.cart-total {
-  font-size: var(--step-lead);
+.cart-value {
+  font-size: var(--step-small);
+  color: var(--muted);
+}
+
+.cart-summary[hidden] {
+  display: none;
 }
 
 .cart-summary .button {
@@ -1259,7 +1267,11 @@ img[src*="icons/"] {
 
 .product-not-found {
   grid-column: 1 / -1;
+  display: grid;
+  gap: var(--space-md);
+  justify-items: start;
   max-width: 36rem;
+  padding-block: var(--space-xl);
 }
 
 .button:disabled {
@@ -1289,6 +1301,7 @@ body.nav-open {
   }
   .cart-item {
     grid-template-columns: 7rem 1fr auto;
+    grid-template-areas: "media info price";
     gap: var(--space-lg);
   }
 }
@@ -1406,8 +1419,7 @@ body.nav-open {
 
 /* nicht umbrechen: E-Mail-Adressen, Uhrzeiten, kurze Labels */
 .nowrap,
-.opening-hours dd,
-.cart-lines dt {
+.opening-hours dd {
   white-space: nowrap;
 }
 
@@ -1527,8 +1539,8 @@ body.nav-open {
 
 .viewing-confirmation-lead {
   font-family: var(--font-display);
-  font-size: var(--step-title);
-  line-height: var(--leading-tight);
+  font-size: var(--step-lead);
+  line-height: var(--leading-snug);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -1540,6 +1552,76 @@ body.nav-open {
 /* "All" ist ein kurzes Wort: trotzdem 44px breite Tippfläche */
 .filter-btn {
   min-width: 2.75rem;
+}
+
+/* ---- Produktseite: Hinweis unter den Buttons ---- */
+.product-actions-note {
+  margin-top: var(--space-sm);
+  max-width: 24rem;
+  font-size: var(--step-small);
+  color: var(--muted);
+}
+
+.product-actions-note a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
+/* ---- Auswahl: Meldung nach "Remove" mit Undo ---- */
+.cart-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-height: 2.75rem;
+  margin-top: var(--space-xs);
+}
+
+.cart-undo {
+  min-height: 2.75rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  color: var(--accent);
+}
+
+#selection-title:focus {
+  outline: none;
+}
+
+/* ---- Eigene Fehlermeldungen ---- */
+.field-error {
+  flex-basis: 100%;
+  font-size: var(--step-small);
+  font-weight: 600;
+  color: var(--error);
+}
+
+.field-error:empty {
+  display: none;
+}
+
+.contact-form [aria-invalid="true"],
+.newsletter-form [aria-invalid="true"] {
+  border-color: var(--error);
+}
+
+/* ---- Signatur im Goldpanel: erlaubte Abweichung seit Mitternacht ---- */
+.drift-readout {
+  display: grid;
+  gap: var(--space-2xs);
+}
+
+.drift-value {
+  font-family: var(--font-display);
+  font-size: var(--step-title);
+  font-weight: 500;
+  line-height: 1;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.drift-caption {
+  max-width: 26ch;
 }
 
 /* ============================================
