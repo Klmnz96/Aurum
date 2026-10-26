@@ -360,6 +360,53 @@ function initCartPage() {
   });
 
   cartList.addEventListener("click", handleCartClick);
+  document
+    .querySelector("#checkout-btn")
+    .addEventListener("click", handleCheckoutClick);
+}
+
+function showFormMessage(form, messageText) {
+  const existingMessage = form.querySelector(".form-message");
+  if (existingMessage) existingMessage.remove();
+
+  form.insertAdjacentHTML("beforeend", buildFormMessage(messageText));
+  form.reset();
+}
+
+function handleNewsletterSubmit(event) {
+  event.preventDefault();
+  showFormMessage(
+    event.currentTarget,
+    "Thank you. You'll hear from us when a new piece is ready.",
+  );
+}
+
+function handleContactSubmit(event) {
+  event.preventDefault();
+  showFormMessage(
+    event.currentTarget,
+    "Thank you. Our concierge will reply within one work day.",
+  );
+}
+
+function handleCheckoutClick(event) {
+  const checkoutButton = event.currentTarget;
+  const cartSummary = checkoutButton.closest(".cart-summary");
+  if (cartSummary.querySelector(".form-message")) return;
+
+  checkoutButton.insertAdjacentHTML("afterend", buildCheckoutNotice());
+}
+
+function initForms() {
+  const newsletterForm = document.querySelector(".newsletter-form");
+  const contactForm = document.querySelector(".contact-form");
+
+  if (newsletterForm) {
+    newsletterForm.addEventListener("submit", handleNewsletterSubmit);
+  }
+  if (contactForm) {
+    contactForm.addEventListener("submit", handleContactSubmit);
+  }
 }
 
 function init() {
@@ -373,6 +420,7 @@ function init() {
   initBoutiqueStatus();
   initProductDetail();
   initCartPage();
+  initForms();
 }
 
 init();
