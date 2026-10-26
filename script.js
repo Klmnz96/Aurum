@@ -288,10 +288,12 @@ function handleAddToCartClick(event) {
   const addButton = event.target.closest(".product-add");
   if (!addButton) return;
 
-  addToCart(addButton.dataset.id);
+  const wasAdded = addToCart(addButton.dataset.id);
   updateCartCount();
 
-  addButton.textContent = "Added to selection";
+  addButton.textContent = wasAdded
+    ? "Added to selection"
+    : "Already in your selection";
   setTimeout(() => {
     addButton.textContent = "Add to selection";
   }, 1500);
@@ -326,31 +328,23 @@ function renderCartPage(products) {
   const cartEmpty = document.querySelector("#cart-empty");
   const checkoutButton = document.querySelector("#checkout-btn");
   const cartEntries = getCartEntries(products);
-  const cartTotal = formatPrice(getCartTotal(cartEntries));
 
   cartList.innerHTML = cartEntries.map(buildCartItem).join("");
   cartEmpty.hidden = cartEntries.length > 0;
   checkoutButton.disabled = cartEntries.length === 0;
-  document.querySelector("#cart-subtotal").textContent = cartTotal;
-  document.querySelector("#cart-total").textContent = cartTotal;
+  document.querySelector("#cart-piece-count").textContent = cartEntries.length;
+  document.querySelector("#cart-total").textContent = formatPrice(
+    getCartTotal(cartEntries),
+  );
 
   updateCartCount();
 }
 
 function handleCartClick(event) {
-  const quantityButton = event.target.closest(".quantity-btn");
   const removeButton = event.target.closest(".cart-item-remove");
+  if (!removeButton) return;
 
-  if (quantityButton) {
-    const quantityChange =
-      quantityButton.dataset.action === "increase" ? 1 : -1;
-    changeQuantity(quantityButton.dataset.id, quantityChange);
-  } else if (removeButton) {
-    removeFromCart(removeButton.dataset.id);
-  } else {
-    return;
-  }
-
+  removeFromCart(removeButton.dataset.id);
   renderCartPage(allProducts);
 }
 
@@ -365,8 +359,10 @@ function initCartPage() {
 
   cartList.addEventListener("click", handleCartClick);
   document
-    .querySelector("#checkout-btn")
-    .addEventListener("click", handleCheckoutClick);
+    .querySelectorAll(".book-viewing-btn")
+    .forEach((bookButton) =>
+      bookButton.addEventListener("click", handleBookViewingClick),
+    );
 }
 
 function showFormMessage(form, messageText) {
@@ -385,18 +381,40 @@ function handleNewsletterSubmit(event) {
   );
 }
 
+function getRequestedPiecesText(contactForm) {
+  const pieceNames = contactForm.dataset.pieceNames
+    ? contactForm.dataset.pieceNames.split(",")
+    : [];
+  const referenceSelect = contactForm.querySelector("#reference-select");
+
+  if (!pieceNames.length && referenceSelect.value) {
+    pieceNames.push(referenceSelect.selectedOptions[0].textContent);
+  }
+
+  return pieceNames.length
+    ? `For the ${formatNameList(pieceNames)}`
+    : "For a first look at the collection";
+}
+
+// Statt einer kleinen Danke-Zeile ersetzt eine Zusammenfassung das Formular
 function handleContactSubmit(event) {
   event.preventDefault();
-  showFormMessage(
-    event.currentTarget,
-    "Thank you. Our concierge will reply within one work day.",
-  );
+  const contactForm = event.currentTarget;
+  const dateValue = contactForm.querySelector("#viewing-date").value;
+
+  const confirmationDetails = {
+    piecesText: getRequestedPiecesText(contactForm),
+    dateText: dateValue ? formatViewingDate(dateValue) : "on a day that suits you",
+    emailAddress: escapeHtml(contactForm.querySelector("[name=email]").value.trim()),
+  };
+
+  contactForm.outerHTML = buildViewingConfirmation(confirmationDetails);
+  document.querySelector("#request").focus();
 }
 
 // Kein echter Checkout: die Auswahl geht als Besichtigungs-Anfrage an die Kontaktseite
-function handleCheckoutClick() {
-  const selectedIds = getCart().map((cartItem) => cartItem.id);
-  window.location.href = `contact.html?reference=${selectedIds.join(",")}`;
+function handleBookViewingClick() {
+  window.location.href = getViewingUrl(getSelectedIds());
 }
 
 function handleViewingDateInput(event) {
@@ -407,21 +425,38 @@ function handleViewingDateInput(event) {
   dateField.setCustomValidity(validityMessage);
 }
 
+// Der Link endet auf #request: erst springen, wenn das Formular fertig aufgebaut ist,
+// sonst landet man durch nachladende Inhalte an der falschen Stelle
+function scrollToRequestForm() {
+  if (window.location.hash !== "#request") return;
+  document
+    .querySelector("#request")
+    .scrollIntoView({ block: "start", behavior: "instant" });
+}
+
+// Kommt man mit einer Auswahl, zeigt das Formular die Uhren als Liste mit Bild
+// und blendet die Einzelauswahl aus
 function prefillViewingForm(referenceIds) {
-  const referenceSelect = document.querySelector("#reference-select");
-  const viewingMessage = document.querySelector("#viewing-message");
+  const contactForm = document.querySelector(".contact-form");
+  const selectionStrip = document.querySelector("#selection-strip");
+  const referenceField = document.querySelector("#reference-field");
 
   getProducts().then((products) => {
-    const selectedProducts = products.filter((product) =>
-      referenceIds.includes(product.id),
-    );
-    if (!selectedProducts.length) return;
-
-    referenceSelect.value = selectedProducts[0].id;
-    if (selectedProducts.length > 1) {
-      const productNames = selectedProducts.map((product) => product.name);
-      viewingMessage.value = `I'd like to see the ${formatNameList(productNames)}.`;
+    const selectedProducts = getProductsByIds(products, referenceIds);
+    if (!selectedProducts.length) {
+      scrollToRequestForm();
+      return;
     }
+
+    document.querySelector("#selection-pieces").innerHTML = selectedProducts
+      .map(buildSelectionPiece)
+      .join("");
+    contactForm.dataset.pieceNames = selectedProducts
+      .map((product) => product.name)
+      .join(",");
+    selectionStrip.hidden = false;
+    referenceField.hidden = true;
+    scrollToRequestForm();
   });
 }
 
