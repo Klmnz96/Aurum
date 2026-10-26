@@ -43,6 +43,47 @@ function initHeader() {
   headerObserver.observe(heroSentinel);
 }
 
+function setMobileNav(isOpen) {
+  const siteNav = document.querySelector("#site-nav");
+  const navToggle = document.querySelector(".nav-toggle");
+  const toggleIcon = navToggle.querySelector("img");
+
+  siteNav.classList.toggle("is-open", isOpen);
+  document.body.classList.toggle("nav-open", isOpen);
+  navToggle.setAttribute("aria-expanded", isOpen);
+
+  toggleIcon.src = getAssetPath(
+    isOpen ? "assets/icons/close.svg" : "assets/icons/menu.svg",
+  );
+  toggleIcon.alt = isOpen ? "Close menu" : "Open menu";
+}
+
+function handleNavToggleClick(event) {
+  const isOpen = event.currentTarget.getAttribute("aria-expanded") === "true";
+  setMobileNav(!isOpen);
+}
+
+function handleNavLinkClick(event) {
+  if (event.target.closest("a")) setMobileNav(false);
+}
+
+function handleNavKeyDown(event) {
+  if (event.key === "Escape") setMobileNav(false);
+}
+
+function initMobileNav() {
+  const navToggle = document.querySelector(".nav-toggle");
+  const siteNav = document.querySelector("#site-nav");
+  if (!navToggle || !siteNav) return;
+
+  navToggle.addEventListener("click", handleNavToggleClick);
+  siteNav.addEventListener("click", handleNavLinkClick);
+  document.addEventListener("keydown", handleNavKeyDown);
+
+  const desktopQuery = window.matchMedia("(min-width: 60rem)");
+  desktopQuery.addEventListener("change", () => setMobileNav(false));
+}
+
 function initScrollReveal() {
   const revealElements = document.querySelectorAll(
     "[data-reveal], [data-disc]",
@@ -324,6 +365,7 @@ function initCartPage() {
 function init() {
   updateCartCount();
   initHeader();
+  initMobileNav();
   initScrollReveal();
   initFeaturedGrid();
   initCollectionGrid();
