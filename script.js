@@ -149,11 +149,15 @@ function handleFilterClick(event) {
       : allProducts.filter((product) => product.category === category);
 
   renderProductGrid(productGrid, filteredProducts);
+  document.querySelector("#collection-heading").textContent =
+    getCollectionHeading(category, filteredProducts.length);
 
-  document
-    .querySelectorAll(".filter-btn")
-    .forEach((button) => button.classList.remove("is-active"));
+  document.querySelectorAll(".filter-btn").forEach((button) => {
+    button.classList.remove("is-active");
+    button.setAttribute("aria-pressed", "false");
+  });
   clickedButton.classList.add("is-active");
+  clickedButton.setAttribute("aria-pressed", "true");
 }
 
 function initCollectionGrid() {
@@ -389,12 +393,45 @@ function handleContactSubmit(event) {
   );
 }
 
-function handleCheckoutClick(event) {
-  const checkoutButton = event.currentTarget;
-  const cartSummary = checkoutButton.closest(".cart-summary");
-  if (cartSummary.querySelector(".form-message")) return;
+// Kein echter Checkout: die Auswahl geht als Besichtigungs-Anfrage an die Kontaktseite
+function handleCheckoutClick() {
+  const selectedIds = getCart().map((cartItem) => cartItem.id);
+  window.location.href = `contact.html?reference=${selectedIds.join(",")}`;
+}
 
-  checkoutButton.insertAdjacentHTML("afterend", buildCheckoutNotice());
+function handleViewingDateInput(event) {
+  const dateField = event.currentTarget;
+  const validityMessage = isSunday(dateField.value)
+    ? "The boutique is closed on Sundays. Please choose another day."
+    : "";
+  dateField.setCustomValidity(validityMessage);
+}
+
+function prefillViewingForm(referenceIds) {
+  const referenceSelect = document.querySelector("#reference-select");
+  const viewingMessage = document.querySelector("#viewing-message");
+
+  getProducts().then((products) => {
+    const selectedProducts = products.filter((product) =>
+      referenceIds.includes(product.id),
+    );
+    if (!selectedProducts.length) return;
+
+    referenceSelect.value = selectedProducts[0].id;
+    if (selectedProducts.length > 1) {
+      const productNames = selectedProducts.map((product) => product.name);
+      viewingMessage.value = `I'd like to see the ${formatNameList(productNames)}.`;
+    }
+  });
+}
+
+function initViewingForm() {
+  const dateField = document.querySelector("#viewing-date");
+  if (!dateField) return;
+
+  dateField.min = getTodayDateValue();
+  dateField.addEventListener("input", handleViewingDateInput);
+  prefillViewingForm(getReferenceIdsFromUrl());
 }
 
 function initForms() {
@@ -421,6 +458,7 @@ function init() {
   initProductDetail();
   initCartPage();
   initForms();
+  initViewingForm();
 }
 
 init();
