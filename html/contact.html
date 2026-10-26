@@ -30,7 +30,7 @@
         <div class="header-actions">
           <!--Warenkorb-->
           <a href="cart.html" class="cart-link">
-            Cart
+            Selection
             <span class="cart-count" id="cart-count">0</span>
           </a>
           <button
@@ -96,7 +96,7 @@
             <address data-reveal style="--i: 1">
               12 Rue du Rhône<br />
               1204 Geneva, Switzerland<br />
-              <a href="mailto:concierge@aurum-watches.com"
+              <a class="nowrap" href="mailto:concierge@aurum-watches.com"
                 >concierge@aurum-watches.com</a
               ><br />
               <a href="tel:+41220000000">+41 22 000 00 00</a>
@@ -122,25 +122,32 @@
 
           <form class="contact-form">
             <h2>Request a viewing</h2>
-            <p class="form-note">This demo form doesn't send yet.</p>
-            <label data-reveal style="--i: 2">Name<input type="text" name="name" autocomplete="name" required /></label>
-            <label data-reveal style="--i: 3">Email<input type="email" name="email" autocomplete="email" required /></label>
+            <label data-reveal style="--i: 2"
+              >Name <span class="required-note">(required)</span
+              ><input type="text" name="name" autocomplete="name" required /></label>
+            <label data-reveal style="--i: 3"
+              >Email <span class="required-note">(required)</span
+              ><input type="email" name="email" autocomplete="email" required /></label>
             <label data-reveal style="--i: 4"
               >Reference
-              <select name="reference">
-                <option>Not sure yet</option>
-                <option>Meridian</option>
-                <option>Regent</option>
-                <option>Calibre</option>
-                <option>Apex</option>
-                <option>Velocity</option>
+              <select name="reference" id="reference-select">
+                <option value="">Not sure yet</option>
+                <option value="meridian">Meridian</option>
+                <option value="regent">Regent</option>
+                <option value="calibre">Calibre</option>
+                <option value="apex">Apex</option>
+                <option value="velocity">Velocity</option>
               </select>
             </label>
-            <label data-reveal style="--i: 5">Preferred date<input type="date" name="date" /></label>
+            <label data-reveal style="--i: 5"
+              >Preferred date
+              <input type="date" name="date" id="viewing-date" />
+            </label>
             <label data-reveal style="--i: 6"
-              >Message<textarea name="message" rows="4"></textarea>
+              >Message<textarea name="message" id="viewing-message" rows="4"></textarea>
             </label>
             <button type="submit" class="button">Send request</button>
+            <p class="form-note">Demo form: requests are not sent anywhere.</p>
           </form>
         </div>
       </section>
@@ -223,7 +230,7 @@
             <h2 class="footer-label">Boutique</h2>
             <address>
               12 Rue du Rhône, Geneva<br />
-              concierge@aurum-watches.com<br />
+              <span class="nowrap">concierge@aurum-watches.com</span><br />
               +41 22 000 00 00
             </address>
           </div>

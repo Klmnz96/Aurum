@@ -32,7 +32,7 @@
         <div class="header-actions">
           <!--Warenkorb-->
           <a href="cart.html" class="cart-link">
-            Cart
+            Selection
             <span class="cart-count" id="cart-count">0</span>
           </a>
           <button
@@ -85,16 +85,16 @@
       <section class="section section-collection">
         <div class="container">
           <div class="collection-head">
-            <h2 data-reveal>All five references</h2>
+            <h2 id="collection-heading" data-reveal aria-live="polite">All five references</h2>
 
             <!--Filter Button-->
             <div class="filter-bar" data-reveal style="--i: 1">
-              <button class="filter-btn is-active" data-category="all">All</button>
-              <button class="filter-btn" data-category="Diver">Diver</button>
-              <button class="filter-btn" data-category="Dress">Dress</button>
-              <button class="filter-btn" data-category="Heritage">Heritage</button>
-              <button class="filter-btn" data-category="Sport">Sport</button>
-              <button class="filter-btn" data-category="Avant-Garde">
+              <button class="filter-btn is-active" type="button" aria-pressed="true" data-category="all">All</button>
+              <button class="filter-btn" type="button" aria-pressed="false" data-category="Diver">Diver</button>
+              <button class="filter-btn" type="button" aria-pressed="false" data-category="Dress">Dress</button>
+              <button class="filter-btn" type="button" aria-pressed="false" data-category="Heritage">Heritage</button>
+              <button class="filter-btn" type="button" aria-pressed="false" data-category="Sport">Sport</button>
+              <button class="filter-btn" type="button" aria-pressed="false" data-category="Avant-Garde">
                 Avant-Garde
               </button>
             </div>
@@ -150,7 +150,7 @@
             <h2 class="footer-label">Boutique</h2>
             <address>
               12 Rue du Rhône, Geneva<br />
-              concierge@aurum-watches.com<br />
+              <span class="nowrap">concierge@aurum-watches.com</span><br />
               +41 22 000 00 00
             </address>
           </div>
