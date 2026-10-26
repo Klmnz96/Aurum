@@ -9,23 +9,22 @@ function saveCart(cartItems) {
   localStorage.setItem(cartStorageKey, JSON.stringify(cartItems));
 }
 
+// Jede Uhr ist entweder in der Auswahl oder nicht (keine Mengen bei einer Besichtigung).
+// Gibt zurück, ob die Uhr neu dazugekommen ist.
 function addToCart(productId) {
   const cartItems = getCart();
-  const existingItem = cartItems.find((cartItem) => cartItem.id === productId);
+  const isAlreadySelected = cartItems.some(
+    (cartItem) => cartItem.id === productId,
+  );
+  if (isAlreadySelected) return false;
 
-  if (existingItem) {
-    existingItem.quantity++;
-  } else {
-    cartItems.push({ id: productId, quantity: 1 });
-  }
+  cartItems.push({ id: productId });
   saveCart(cartItems);
+  return true;
 }
 
 function getCartCount(cartItems) {
-  return cartItems.reduce(
-    (totalCount, cartItem) => totalCount + cartItem.quantity,
-    0,
-  );
+  return cartItems.length;
 }
 
 function updateCartCount() {
@@ -33,15 +32,6 @@ function updateCartCount() {
   if (!cartCount) return;
 
   cartCount.textContent = getCartCount(getCart());
-}
-
-function changeQuantity(productId, quantityChange) {
-  const cartItems = getCart();
-  const changedItem = cartItems.find((cartItem) => cartItem.id === productId);
-  changedItem.quantity += quantityChange;
-
-  const remainingItems = cartItems.filter((cartItem) => cartItem.quantity > 0);
-  saveCart(remainingItems);
 }
 
 function removeFromCart(productId) {
@@ -55,18 +45,18 @@ function getCartEntries(products) {
   return getCart()
     .map((cartItem) => {
       const product = products.find((product) => product.id === cartItem.id);
-      return {
-        product: product,
-        quantity: cartItem.quantity,
-        lineTotal: product ? product.price * cartItem.quantity : 0,
-      };
+      return { product: product };
     })
     .filter((cartEntry) => cartEntry.product);
 }
 
 function getCartTotal(cartEntries) {
   return cartEntries.reduce(
-    (totalPrice, cartEntry) => totalPrice + cartEntry.lineTotal,
+    (totalPrice, cartEntry) => totalPrice + cartEntry.product.price,
     0,
   );
+}
+
+function getSelectedIds() {
+  return getCart().map((cartItem) => cartItem.id);
 }
