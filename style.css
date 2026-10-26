@@ -679,6 +679,7 @@ img[src*="icons/"] {
 }
 
 .filter-btn {
+  min-height: 2.75rem;
   color: var(--muted);
   padding-block: var(--space-2xs);
   text-decoration: underline;
@@ -1074,10 +1075,24 @@ img[src*="icons/"] {
   margin-top: var(--space-md);
 }
 
-.product-add {
-  margin-top: var(--space-lg);
-  width: 100%;
+.product-actions {
+  display: grid;
+  gap: var(--space-xs);
   max-width: 24rem;
+  margin-top: var(--space-lg);
+}
+
+/* zweite Aktion: ruhiger als der Gold-Button, eine Tonstufe über dem Grund */
+.button-quiet {
+  background: var(--surface);
+  color: var(--ink);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button-quiet:hover {
+    background: #000;
+    color: var(--accent-strong);
+  }
 }
 
 .product-specs {
@@ -1189,7 +1204,9 @@ img[src*="icons/"] {
 }
 
 .cart-item-remove {
-  margin-top: var(--space-2xs);
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   font-size: var(--step-small);
   text-decoration: underline;
   text-underline-offset: 0.3em;
@@ -1412,6 +1429,31 @@ body.nav-open {
   }
 }
 
+/* nicht umbrechen: E-Mail-Adressen, Uhrzeiten, kurze Labels */
+.nowrap,
+.opening-hours dd,
+.cart-lines dt {
+  white-space: nowrap;
+}
+
+.required-note {
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.cart-item-name a {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.3em;
+  transition: text-decoration-color var(--t-hover) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cart-item-name a:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
 /* ============================================
    Breakpoints
    ============================================ */
@@ -1572,6 +1614,29 @@ body.nav-open {
 
   .nav-toggle {
     display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-right: -0.625rem;
+  }
+
+  /* Produktseite: flacheres Hauptbild und engere Abstände,
+     damit Name, Preis und Besichtigungs-Button in den ersten Bildschirm passen */
+  .product-page {
+    padding-top: var(--space-md);
+  }
+  .back-link {
+    margin-bottom: var(--space-sm);
+  }
+  .product {
+    gap: var(--space-md);
+  }
+  .product-main-image {
+    aspect-ratio: 3 / 2;
+  }
+  .product-thumb {
+    aspect-ratio: 4 / 3;
   }
 
   .hero {
@@ -1583,11 +1648,11 @@ body.nav-open {
     top: calc(var(--seam) - 120vw * 1.2406 * 0.34);
     /* Armband unterhalb der Kante sanft ausblenden, damit der Text frei steht */
     /* taste-skill-ignore: Transparenzmaske, keine sichtbare Verlaufsfläche */
-    -webkit-mask-image: linear-gradient(
+    -webkit-mask-image: linear-gradient( /* taste-skill-ignore */
       #000 0 calc(120vw * 1.2406 * 0.34 + 4svh),
       transparent calc(120vw * 1.2406 * 0.34 + 14svh)
     ); /* taste-skill-ignore */
-    mask-image: linear-gradient(
+    mask-image: linear-gradient( /* taste-skill-ignore */
       #000 0 calc(120vw * 1.2406 * 0.34 + 4svh),
       transparent calc(120vw * 1.2406 * 0.34 + 14svh)
     ); /* taste-skill-ignore */
