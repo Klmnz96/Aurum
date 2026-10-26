@@ -555,6 +555,7 @@ img[src*="icons/"] {
 
 .newsletter-form {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-sm);
   max-width: 26rem;
 }
@@ -576,6 +577,23 @@ img[src*="icons/"] {
 .newsletter-form input:focus-visible {
   outline: none;
   border-color: var(--accent);
+}
+
+.form-message {
+  flex-basis: 100%;
+  margin-top: var(--space-xs);
+  font-weight: 600;
+}
+
+.form-message a {
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .form-message {
+    animation: rise-in 500ms var(--ease-out) both;
+  }
 }
 
 .footer-wordmark {
