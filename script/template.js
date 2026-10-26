@@ -75,7 +75,10 @@ function buildProductDetail(product) {
   <p class="product-price">${formatPrice(product.price)}</p>
   <p class="product-category">${product.category}, ${product.caseSize}</p>
   <p class="product-summary">${product.summary}</p>
-  <button class="button product-add" type="button" data-id="${product.id}">Add to selection</button>
+  <div class="product-actions">
+  <a class="button" href="${getPagePath(`contact.html?reference=${product.id}`)}">Request a viewing</a>
+  <button class="button button-quiet product-add" type="button" data-id="${product.id}">Add to selection</button>
+  </div>
   <dl class="product-specs">
   <div><dt>Case</dt><dd>${product.caseSize}</dd></div>
   <div><dt>Material</dt><dd>${product.material}</dd></div>
@@ -96,7 +99,7 @@ function buildCartItem(cartEntry) {
   <img src="${getAssetPath(cartEntry.product.thumb)}" alt="${cartEntry.product.name}" />
   </figure>
   <div class="cart-item-info">
-  <h3 class="cart-item-name">${cartEntry.product.name}</h3>
+  <h3 class="cart-item-name"><a href="${getPagePath(`product.html?id=${cartEntry.product.id}`)}">${cartEntry.product.name}</a></h3>
   <p class="cart-item-meta">${cartEntry.product.category}, ${cartEntry.product.caseSize}</p>
   <button class="cart-item-remove" type="button" data-id="${cartEntry.product.id}">Remove</button>
   </div>
@@ -118,11 +121,3 @@ function buildFormMessage(messageText) {
   return `<p class="form-message" role="status">${messageText}</p>`;
 }
 
-function buildCheckoutNotice() {
-  return `
-  <p class="form-message" role="status">
-  This is a portfolio demo, so no payment is taken.
-  <a href="contact.html">Book a private viewing</a> to see your selection in Geneva.
-  </p>
-  `;
-}
