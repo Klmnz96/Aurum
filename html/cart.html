@@ -52,7 +52,7 @@
     <main id="main" class="section cart-page">
       <div class="container">
         <header class="page-head cart-head">
-          <h1>Your selection</h1>
+          <h1 id="selection-title" tabindex="-1">Your selection</h1>
           <p>
             The pieces you'd like to see. We'll have them waiting at the table
             at 12 Rue du Rhône.
@@ -84,6 +84,9 @@
             <!--JS füllt hier pro Artikel-->
             <ul class="cart-items" id="cart-items"></ul>
 
+            <!--Meldung nach "Remove" mit Rückgängig-Button-->
+            <p class="cart-status" id="cart-status" role="status"></p>
+
             <!--
               Vorlage für einen Eintrag: siehe buildCartItem() in script/template.js
               (Bild, Name als Link zur Produktseite, Kategorie und Größe, Remove, Preis)
@@ -106,7 +109,7 @@
                 <dd>About an hour</dd>
               </div>
             </dl>
-            <p class="cart-total">
+            <p class="cart-value">
               Indicative value <span id="cart-total">$0</span>
             </p>
             <button
@@ -123,36 +126,6 @@
           </aside>
         </div>
       </div>
-
-      <!--Erst anprobieren? Verweis auf die private Besichtigung-->
-      <section class="cart-viewing">
-        <div class="container cart-viewing-grid">
-          <figure class="cart-viewing-media" data-reveal>
-            <img
-              src="../assets/images/patek-wrist.jpg"
-              alt="The Calibre worn with a dark suit"
-              width="1690"
-              height="1280"
-              loading="lazy"
-            />
-          </figure>
-          <div class="cart-viewing-text">
-            <h2 data-reveal style="--i: 1">Try them on first</h2>
-            <p data-reveal style="--i: 2">
-              Book a private viewing at 12 Rue du Rhône. Your selection will be
-              waiting at the table.
-            </p>
-            <button
-              class="button book-viewing-btn"
-              type="button"
-              data-reveal
-              style="--i: 3"
-            >
-              Book a private viewing
-            </button>
-          </div>
-        </div>
-      </section>
     </main>
 
     <!--Footer: der Name läuft über das letzte Foto-->
