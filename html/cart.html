@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cart - Aurum</title>
+    <title>Selection - Aurum</title>
     <script>
       document.documentElement.classList.add("js");
     </script>
@@ -54,8 +54,8 @@
         <header class="page-head cart-head">
           <h1>Your selection</h1>
           <p>
-            Pieces you add are kept here until you check out or book a viewing
-            to try them on in Geneva.
+            The pieces you'd like to see. We'll have them waiting at the table
+            at 12 Rue du Rhône.
           </p>
         </header>
 
@@ -85,48 +85,40 @@
             <ul class="cart-items" id="cart-items"></ul>
 
             <!--
-              VORLAGE für einen Artikel (z. B. buildCartItem(product, quantity)):
-
-              <li class="cart-item">
-                <figure class="cart-item-media watch-frame" style="getWatchFocusStyle(product.focus)">
-                  <img src="product.thumb" alt="Meridian" />
-                </figure>
-                <div class="cart-item-info">
-                  <h3 class="cart-item-name">Meridian</h3>
-                  <p class="cart-item-meta">Diver, 41mm</p>
-                  <button class="cart-item-remove" type="button" data-id="meridian">Remove</button>
-                </div>
-                <div class="cart-item-quantity">
-                  <button class="quantity-btn" type="button" data-action="decrease" data-id="meridian" aria-label="One less">
-                    <img src="../assets/icons/minus.svg" alt="" width="16" height="16" />
-                  </button>
-                  <span>1</span>
-                  <button class="quantity-btn" type="button" data-action="increase" data-id="meridian" aria-label="One more">
-                    <img src="../assets/icons/plus.svg" alt="" width="16" height="16" />
-                  </button>
-                </div>
-                <p class="cart-item-price">$11,800</p>
-              </li>
+              Vorlage für einen Eintrag: siehe buildCartItem() in script/template.js
+              (Bild, Name als Link zur Produktseite, Kategorie und Größe, Remove, Preis)
             -->
           </div>
 
           <aside class="cart-summary" aria-labelledby="summary-heading">
-            <h2 id="summary-heading">Summary</h2>
+            <h2 id="summary-heading">Your viewing</h2>
             <dl class="cart-lines">
               <div>
-                <dt>Subtotal</dt>
-                <dd id="cart-subtotal">$0</dd>
+                <dt>Pieces</dt>
+                <dd id="cart-piece-count">0</dd>
               </div>
               <div>
-                <dt>Insured shipping</dt>
-                <dd>Complimentary</dd>
+                <dt>Where</dt>
+                <dd>12 Rue du Rhône</dd>
+              </div>
+              <div>
+                <dt>How long</dt>
+                <dd>About an hour</dd>
               </div>
             </dl>
-            <p class="cart-total">Total <span id="cart-total">$0</span></p>
-            <button class="button" type="button" id="checkout-btn">Book a viewing for these pieces</button>
+            <p class="cart-total">
+              Indicative value <span id="cart-total">$0</span>
+            </p>
+            <button
+              class="button book-viewing-btn"
+              type="button"
+              id="checkout-btn"
+            >
+              Book a viewing for these pieces
+            </button>
             <p class="cart-note">
-              Your selection comes with you to the viewing request. Every piece
-              ships insured from Geneva, or can be collected at the boutique.
+              Nothing is charged here. The concierge confirms a time by email,
+              and a watchmaker will be at the table.
             </p>
           </aside>
         </div>
@@ -150,9 +142,14 @@
               Book a private viewing at 12 Rue du Rhône. Your selection will be
               waiting at the table.
             </p>
-            <a href="contact.html" class="button" data-reveal style="--i: 3"
-              >Book a private viewing</a
+            <button
+              class="button book-viewing-btn"
+              type="button"
+              data-reveal
+              style="--i: 3"
             >
+              Book a private viewing
+            </button>
           </div>
         </div>
       </section>

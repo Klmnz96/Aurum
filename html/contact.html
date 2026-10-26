@@ -120,15 +120,23 @@
             </p>
           </div>
 
-          <form class="contact-form">
+          <form class="contact-form" id="request">
             <h2>Request a viewing</h2>
+
+            <!--Wird per JS gezeigt, wenn man mit einer Auswahl kommt-->
+            <div class="selection-strip" id="selection-strip" hidden>
+              <h3>Your selection</h3>
+              <ul class="selection-pieces" id="selection-pieces"></ul>
+              <a href="cart.html" class="link-arrow">Change selection</a>
+            </div>
+
             <label data-reveal style="--i: 2"
-              >Name <span class="required-note">(required)</span
-              ><input type="text" name="name" autocomplete="name" required /></label>
+              ><span>Name <span class="required-note">(required)</span></span
+              ><input type="text" name="name" autocomplete="name" required pattern=".*\S.*" title="Please enter your name" /></label>
             <label data-reveal style="--i: 3"
-              >Email <span class="required-note">(required)</span
-              ><input type="email" name="email" autocomplete="email" required /></label>
-            <label data-reveal style="--i: 4"
+              ><span>Email <span class="required-note">(required)</span></span
+              ><input type="email" name="email" autocomplete="email" required pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Please enter an email like name@example.com" /></label>
+            <label id="reference-field" data-reveal style="--i: 4"
               >Reference
               <select name="reference" id="reference-select">
                 <option value="">Not sure yet</option>
