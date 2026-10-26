@@ -86,11 +86,16 @@ function isSunday(dateValue) {
 }
 
 // Link zur Besichtigungs-Anfrage, springt direkt zum Formular
-function getViewingUrl(productIds) {
+function getViewingUrl(productIds, isFromSelection = false) {
   const referenceQuery = productIds.length
     ? `?reference=${productIds.join(",")}`
     : "";
-  return getPagePath(`contact.html${referenceQuery}#request`);
+  const sourceQuery = isFromSelection ? "&from=selection" : "";
+  return getPagePath(`contact.html${referenceQuery}${sourceQuery}#request`);
+}
+
+function isRequestFromSelection() {
+  return new URLSearchParams(window.location.search).get("from") === "selection";
 }
 
 // Produkte in der Reihenfolge der ids (unbekannte ids fallen weg)
@@ -114,4 +119,32 @@ function escapeHtml(text) {
   const textHolder = document.createElement("div");
   textHolder.textContent = text;
   return textHolder.innerHTML;
+}
+
+// Sekunden seit Mitternacht in Genf, mit Millisekunden
+function getSecondsSinceGenevaMidnight() {
+  const now = new Date();
+  const timeParts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Europe/Zurich",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hourCycle: "h23",
+  }).formatToParts(now);
+  const getPart = (partType) =>
+    Number(timeParts.find((part) => part.type === partType).value);
+
+  return (
+    getPart("hour") * 3600 +
+    getPart("minute") * 60 +
+    getPart("second") +
+    now.getMilliseconds() / 1000
+  );
+}
+
+// Höchstens 2 Sekunden Abweichung pro Tag -> anteilig seit Mitternacht
+function getAllowedDriftSoFar() {
+  const secondsPerDay = 86400;
+  const maxDriftPerDay = 2;
+  return (getSecondsSinceGenevaMidnight() / secondsPerDay) * maxDriftPerDay;
 }
