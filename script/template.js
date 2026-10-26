@@ -45,10 +45,10 @@ function buildProductNotFound() {
   `;
 }
 
-function buildProductThumb(imagePath) {
+function buildProductThumb(imagePath, thumbLabel) {
   return `
   <li>
-  <button class="product-thumb" type="button" data-image="${getAssetPath(imagePath)}" aria-label="Show this view">
+  <button class="product-thumb" type="button" data-image="${getAssetPath(imagePath)}" aria-label="${thumbLabel}">
   <img src="${getAssetPath(imagePath)}" alt="" />
   </button>
   </li>
@@ -63,7 +63,7 @@ function buildProductDetail(product) {
   return `
   <div class="product-gallery">
   <figure class="product-main-image">
-  <img src="${getAssetPath(product.images[0])}" alt="${product.name}" id="product-main-image" />
+  <img src="${getAssetPath(product.images[0])}" alt="${product.name}" id="product-main-image" data-product-name="${product.name}" />
   </figure>
   <ul class="product-thumbs">
   ${getProductThumbsHtml(product.images)}
@@ -79,6 +79,10 @@ function buildProductDetail(product) {
   <a class="button" href="${getViewingUrl([product.id])}">Request a viewing</a>
   <button class="button button-quiet product-add" type="button" data-id="${product.id}">Add to selection</button>
   </div>
+  <p class="product-actions-note">
+  Collect pieces to see together at one viewing. <a href="cart.html">View selection</a>
+  </p>
+  <p class="visually-hidden" role="status" id="product-status"></p>
   <dl class="product-specs">
   <div><dt>Case</dt><dd>${product.caseSize}</dd></div>
   <div><dt>Material</dt><dd>${product.material}</dd></div>
@@ -134,4 +138,8 @@ function buildViewingConfirmation(confirmationDetails) {
   <a href="collection.html" class="link-arrow">Back to the collection</a>
   </div>
   `;
+}
+
+function buildRemovalNotice(productName) {
+  return `${productName} removed. <button class="cart-undo" type="button">Undo</button>`;
 }
