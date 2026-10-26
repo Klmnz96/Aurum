@@ -53,3 +53,34 @@ function getProductIdFromUrl() {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get("id");
 }
+
+// Überschrift der Kollektion passend zum gewählten Filter
+function getCollectionHeading(category, productCount) {
+  if (category === "all") return "All five references";
+  const referenceWord = productCount === 1 ? "reference" : "references";
+  return `${category}, ${productCount} ${referenceWord}`;
+}
+
+// ?reference=meridian,calibre -> ["meridian", "calibre"]
+function getReferenceIdsFromUrl() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const referenceParam = urlParams.get("reference");
+  return referenceParam ? referenceParam.split(",") : [];
+}
+
+// ["Meridian", "Calibre"] -> "Meridian and Calibre"
+function formatNameList(names) {
+  return new Intl.ListFormat("en", { type: "conjunction" }).format(names);
+}
+
+// Heutiges Datum im Format des Datumsfelds (YYYY-MM-DD, lokale Zeit)
+function getTodayDateValue() {
+  const today = new Date();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+  return `${today.getFullYear()}-${month}-${day}`;
+}
+
+function isSunday(dateValue) {
+  return new Date(`${dateValue}T12:00`).getDay() === 0;
+}
