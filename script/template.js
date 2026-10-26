@@ -113,3 +113,16 @@ function buildCartItem(cartEntry) {
   </li>
   `;
 }
+
+function buildFormMessage(messageText) {
+  return `<p class="form-message" role="status">${messageText}</p>`;
+}
+
+function buildCheckoutNotice() {
+  return `
+  <p class="form-message" role="status">
+  This is a portfolio demo, so no payment is taken.
+  <a href="contact.html">Book a private viewing</a> to see your selection in Geneva.
+  </p>
+  `;
+}
